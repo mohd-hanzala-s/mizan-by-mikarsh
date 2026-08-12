@@ -93,13 +93,13 @@ function Toggle({ enabled, onChange, label, description }: { enabled: boolean; o
         aria-checked={enabled}
         onClick={() => onChange(!enabled)}
         className={cn(
-          'relative h-24 w-44 shrink-0 rounded-full transition-colors duration-fast',
+          'relative h-24 w-48 shrink-0 rounded-full transition-colors duration-fast',
           enabled ? 'bg-brand-teal900' : 'bg-neutral-300 dark:bg-neutral-600'
         )}
       >
         <span className={cn(
           'absolute top-2 size-20 rounded-full bg-white shadow-sm transition-transform duration-fast',
-          enabled ? 'left-[calc(100%-22px)]' : 'left-2'
+          enabled ? 'left-[calc(100%-26px)]' : 'left-2'
         )} />
       </button>
     </label>

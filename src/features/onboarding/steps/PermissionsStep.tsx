@@ -191,14 +191,14 @@ export function PermissionsStep({
                 aria-checked={enabled}
                 onClick={toggle}
                 className={cn(
-                  'relative inline-flex h-24 w-44 shrink-0 rounded-full transition-colors duration-fast',
+                  'relative inline-flex h-24 w-48 shrink-0 rounded-full transition-colors duration-fast',
                   enabled ? 'bg-brand-teal400' : 'bg-border'
                 )}
               >
                 <span
                   className={cn(
                     'inline-block size-20 rounded-full bg-white shadow-sm transition-transform duration-fast',
-                    enabled ? 'translate-x-[22px]' : 'translate-x-[2px]'
+                    enabled ? 'translate-x-[26px]' : 'translate-x-[2px]'
                   )}
                   style={{ marginTop: '2px' }}
                 />

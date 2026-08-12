@@ -119,7 +119,7 @@ export function HealthScoreBreakdown({ health, factors }: HealthScoreBreakdownPr
                     {f.weight}%
                   </span>
                 </div>
-                <div className="flex w-120 shrink-0 items-center gap-8">
+                <div className="flex w-128 shrink-0 items-center gap-8">
                   <div className="h-8 flex-1 overflow-hidden rounded-full bg-border-subtle dark:bg-surface-raised">
                     <div
                       className="h-full rounded-full bg-brand-teal400 transition-all duration-standard"

@@ -70,13 +70,13 @@ export function RiskStep({
           >
             <div
               className={cn(
-                'flex size-44 shrink-0 items-center justify-center rounded-xl',
+                'flex size-48 shrink-0 items-center justify-center rounded-xl',
                 currentRisk === value ? 'bg-brand-teal900/15' : 'bg-surface-input'
               )}
             >
               <Icon
                 className={cn(
-                  'size-22',
+                  'size-24',
                   currentRisk === value ? 'text-brand-teal900' : 'text-text-secondary'
                 )}
                 aria-hidden="true"

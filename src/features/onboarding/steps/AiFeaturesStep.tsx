@@ -121,14 +121,14 @@ export function AiFeaturesStep({
               aria-checked={features[key]}
               onClick={() => toggle(key)}
               className={cn(
-                'relative inline-flex h-24 w-44 shrink-0 rounded-full transition-colors duration-fast',
+                'relative inline-flex h-24 w-48 shrink-0 rounded-full transition-colors duration-fast',
                 features[key] ? 'bg-brand-teal400' : 'bg-border'
               )}
             >
               <span
                 className={cn(
                   'inline-block size-20 rounded-full bg-white shadow-sm transition-transform duration-fast',
-                  features[key] ? 'translate-x-[22px]' : 'translate-x-[2px]'
+                  features[key] ? 'translate-x-[26px]' : 'translate-x-[2px]'
                 )}
                 style={{ marginTop: '2px' }}
               />

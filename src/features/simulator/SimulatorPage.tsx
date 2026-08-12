@@ -42,7 +42,7 @@ function NetWorthChart({ years }: { years: YearProjection[] }) {
   const minNW = Math.min(...years.map((y) => y.netWorth), 0)
   const range = maxNW - minNW || 1
   const width = 100
-  const height = 160
+  const height = 192
   const padding = 10
 
   const points = years.map((y, i) => {
@@ -54,7 +54,7 @@ function NetWorthChart({ years }: { years: YearProjection[] }) {
   const zeroY = height - padding - ((0 - minNW) / range) * (height - padding * 2)
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-160" preserveAspectRatio="none" aria-hidden="true">
+    <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-192" preserveAspectRatio="none" aria-hidden="true">
       <line x1={padding} y1={zeroY} x2={width - padding} y2={zeroY} stroke={CHART_ACCENTS.neutral} strokeWidth="0.5" strokeDasharray="3,2" />
       <polygon
         points={`${padding},${height - padding} ${points.join(' ')} ${width - padding},${height - padding}`}
