@@ -46,17 +46,17 @@ export function MoreSheet({ open, onClose }: MoreSheetProps) {
               to={path}
               onClick={onClose}
               className={({ isActive }) =>
-                  cn(
-                    'flex min-h-touch flex-col items-center gap-6 rounded-2xl p-12 text-body-sm font-medium transition-all duration-fast',
-                    isActive
-                      ? 'bg-brand-teal900/10 text-accent font-semibold'
-                      : 'text-text-secondary hover:bg-brand-teal900/5'
-                  )
-                }
-              >
-                <span className="flex size-36 items-center justify-center rounded-xl bg-brand-teal900/8 text-accent">
-                  <Icon className="size-20" aria-hidden="true" />
-                </span>
+                cn(
+                  'flex min-h-touch flex-col items-center gap-6 rounded-2xl p-12 text-body-sm font-medium transition-all duration-fast',
+                  isActive
+                    ? 'bg-brand-teal900/10 text-accent font-semibold'
+                    : 'text-text-secondary hover:bg-brand-teal900/5'
+                )
+              }
+            >
+              <span className="flex size-36 items-center justify-center rounded-xl bg-brand-teal900/8 text-accent">
+                <Icon className="size-20" aria-hidden="true" />
+              </span>
               {label}
             </NavLink>
           ))}

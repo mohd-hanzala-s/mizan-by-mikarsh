@@ -19,8 +19,7 @@ export function AccountCard({ account, onClick }: AccountCardProps) {
       onClick={onClick}
       className={cn(
         'group card-sm flex min-h-touch items-center gap-12 px-16 py-12 transition-all duration-fast',
-        onClick &&
-          'w-full text-left hover:shadow-md'
+        onClick && 'w-full text-left hover:shadow-md'
       )}
     >
       <span

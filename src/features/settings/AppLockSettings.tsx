@@ -90,8 +90,8 @@ export function AppLockSettings() {
         <div className="mt-16 border-t border-border-subtle pt-16">
           <p className="mb-8 text-body-sm font-medium text-text-primary">Re-lock after</p>
           <p className="mb-12 text-caption text-text-secondary">
-            How long Mizan can sit in the background before you need your PIN again. Always
-            required on a fresh launch regardless of this setting.
+            How long Mizan can sit in the background before you need your PIN again. Always required
+            on a fresh launch regardless of this setting.
           </p>
           <div className="flex flex-wrap gap-8">
             {TIMEOUT_OPTIONS.map((opt) => (

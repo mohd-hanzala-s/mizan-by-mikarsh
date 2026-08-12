@@ -95,8 +95,15 @@ export const VaultService = {
     await VaultRepository.delete(id)
   },
 
-  async getAlerts(): Promise<{ id: string; message: string; severity: 'warning' | 'info'; documentId: string }[]> {
-    const alerts: { id: string; message: string; severity: 'warning' | 'info'; documentId: string }[] = []
+  async getAlerts(): Promise<
+    { id: string; message: string; severity: 'warning' | 'info'; documentId: string }[]
+  > {
+    const alerts: {
+      id: string
+      message: string
+      severity: 'warning' | 'info'
+      documentId: string
+    }[] = []
     const expired = await VaultRepository.getExpired()
 
     for (const doc of expired) {

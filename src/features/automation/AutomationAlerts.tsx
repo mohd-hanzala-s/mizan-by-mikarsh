@@ -1,13 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  Bell,
-  AlertTriangle,
-  Info,
-  Zap,
-  ArrowRight,
-  X,
-} from 'lucide-react'
+import { Bell, AlertTriangle, Info, Zap, ArrowRight, X } from 'lucide-react'
 import { useTransactionsStore } from '@/features/transactions/transactionsStore'
 import { useAccountsStore } from '@/features/accounts/accountsStore'
 import { useRecurringStore } from '@/features/recurring/recurringStore'
@@ -68,8 +61,7 @@ export function AutomationAlerts({ limit }: { limit?: number }) {
       transactions.some(
         (t) =>
           !t.isDeleted &&
-          new Date(t.transactionDate).getTime() >
-            reference.getTime() - 30 * 24 * 60 * 60 * 1000
+          new Date(t.transactionDate).getTime() > reference.getTime() - 30 * 24 * 60 * 60 * 1000
       )
     if (!hasData) return
     setLoaded(true)
@@ -186,7 +178,8 @@ export function AutomationAlertsPage() {
       <div className="flex flex-col gap-4">
         <h1 className="text-h2 text-text-primary">Smart Automation</h1>
         <p className="text-body-sm text-text-tertiary">
-          Auto-detected insights from your financial data — duplicates, unusual patterns, upcoming bills, and savings opportunities.
+          Auto-detected insights from your financial data — duplicates, unusual patterns, upcoming
+          bills, and savings opportunities.
         </p>
       </div>
       <AutomationAlerts />

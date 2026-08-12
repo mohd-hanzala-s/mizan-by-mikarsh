@@ -73,10 +73,16 @@ export function TransactionCard({
 
   const amountColor = isTransfer
     ? 'text-info'
-    : transaction.type === 'expense' ? 'text-expense' : 'text-income'
+    : transaction.type === 'expense'
+      ? 'text-expense'
+      : 'text-income'
   const amountPrefix = isTransfer
-    ? transaction.transferDirection === 'credit' ? '+' : '\u2212'
-    : transaction.type === 'expense' ? '\u2212' : '+'
+    ? transaction.transferDirection === 'credit'
+      ? '+'
+      : '\u2212'
+    : transaction.type === 'expense'
+      ? '\u2212'
+      : '+'
 
   const amountLabel = `${amountPrefix}\u20B9${transaction.amount.toLocaleString('en-IN')}`
   const dateLabel = startOfStoredDate(transaction.transactionDate).toLocaleDateString('en-IN', {
@@ -90,10 +96,20 @@ export function TransactionCard({
   return (
     <div className="relative overflow-hidden rounded-2xl">
       <div className="absolute inset-0 flex items-center justify-between px-20">
-        <span className={cn('flex items-center gap-8 text-body-sm font-medium text-income', dragX < 0 && 'invisible')}>
+        <span
+          className={cn(
+            'flex items-center gap-8 text-body-sm font-medium text-income',
+            dragX < 0 && 'invisible'
+          )}
+        >
           <Pencil className="size-16" aria-hidden="true" /> Edit
         </span>
-        <span className={cn('flex items-center gap-8 text-body-sm font-medium text-expense', dragX > 0 && 'invisible')}>
+        <span
+          className={cn(
+            'flex items-center gap-8 text-body-sm font-medium text-expense',
+            dragX > 0 && 'invisible'
+          )}
+        >
           Delete <Trash2 className="size-16" aria-hidden="true" />
         </span>
       </div>
@@ -129,7 +145,9 @@ export function TransactionCard({
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-8 min-w-0">
-            <p className="truncate text-body font-semibold text-text-primary">{transaction.description}</p>
+            <p className="truncate text-body font-semibold text-text-primary">
+              {transaction.description}
+            </p>
             {transaction.recurringRuleId && (
               <span className="flex items-center gap-2 rounded-lg bg-surface px-4 py-1 text-[10px] font-medium text-text-tertiary shadow-pressed shrink-0">
                 <Repeat className="size-10" aria-hidden="true" /> Recurring
@@ -147,7 +165,10 @@ export function TransactionCard({
           {transaction.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-4">
               {transaction.tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-brand-teal900/8 px-6 py-1 text-[10px] font-medium text-brand-teal900 shadow-pressed">
+                <span
+                  key={tag}
+                  className="rounded-full bg-brand-teal900/8 px-6 py-1 text-[10px] font-medium text-brand-teal900 shadow-pressed"
+                >
                   {tag}
                 </span>
               ))}
@@ -155,7 +176,12 @@ export function TransactionCard({
           )}
         </div>
 
-        <span className={cn('shrink-0 font-heading tabular-nums text-body-lg font-bold tracking-tight', amountColor)}>
+        <span
+          className={cn(
+            'shrink-0 font-heading tabular-nums text-body-lg font-bold tracking-tight',
+            amountColor
+          )}
+        >
           {amountPrefix}\u20B9{transaction.amount.toLocaleString('en-IN')}
         </span>
       </div>

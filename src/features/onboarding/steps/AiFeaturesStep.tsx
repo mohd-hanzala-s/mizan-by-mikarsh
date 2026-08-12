@@ -2,13 +2,7 @@ import { useState } from 'react'
 import { useFinancialIdentityStore } from '@/features/profile/financialIdentityStore'
 import type { AiFeatures } from '@/types/entities'
 import { cn } from '@/utils/cn'
-import {
-  TrendingUp,
-  Lightbulb,
-  Tag,
-  Calculator,
-  Target,
-} from 'lucide-react'
+import { TrendingUp, Lightbulb, Tag, Calculator, Target } from 'lucide-react'
 
 const FEATURE_OPTIONS: {
   key: keyof AiFeatures
@@ -48,11 +42,7 @@ const FEATURE_OPTIONS: {
   },
 ]
 
-export function AiFeaturesStep({
-  onNext,
-}: {
-  onNext: (data: { aiFeatures: AiFeatures }) => void
-}) {
+export function AiFeaturesStep({ onNext }: { onNext: (data: { aiFeatures: AiFeatures }) => void }) {
   const identity = useFinancialIdentityStore((s) => s.identity)
   const currentFeatures = identity?.aiFeatures ?? {
     forecasting: true,

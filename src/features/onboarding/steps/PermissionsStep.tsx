@@ -15,11 +15,7 @@ interface PermissionItem {
   toggle: () => void
 }
 
-export function PermissionsStep({
-  onFinish,
-}: {
-  onFinish: (data: { pinSet: boolean }) => void
-}) {
+export function PermissionsStep({ onFinish }: { onFinish: (data: { pinSet: boolean }) => void }) {
   const settings = useSettingsStore((s) => s.settings)
   const load = useSettingsStore((s) => s.load)
   const update = useSettingsStore((s) => s.update)
@@ -142,9 +138,7 @@ export function PermissionsStep({
               <div className="flex flex-col items-center gap-12">
                 <PinInput value={pin} onChange={setPin} label="Choose a PIN" autoFocus />
                 <PinInput value={confirmPin} onChange={setConfirmPin} label="Confirm PIN" />
-                {pinError && (
-                  <p className="text-body-sm text-expense">{pinError}</p>
-                )}
+                {pinError && <p className="text-body-sm text-expense">{pinError}</p>}
                 <button
                   type="button"
                   onClick={handleSetPin}

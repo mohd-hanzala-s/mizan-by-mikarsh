@@ -73,10 +73,7 @@ export function App() {
       {isLoading ? (
         <LoadingScreen />
       ) : isError ? (
-        <ErrorState
-          message={error ?? 'Failed to load settings'}
-          onRetry={() => load()}
-        />
+        <ErrorState message={error ?? 'Failed to load settings'} onRetry={() => load()} />
       ) : !settings ? (
         <LoadingScreen />
       ) : !settings.onboardingCompleted ? (

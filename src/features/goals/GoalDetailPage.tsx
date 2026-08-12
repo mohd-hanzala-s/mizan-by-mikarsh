@@ -1,14 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
-import {
-  ArrowLeft,
-  Plus,
-  Trash2,
-  CheckCircle,
-  Target,
-  CalendarClock,
-} from 'lucide-react'
+import { ArrowLeft, Plus, Trash2, CheckCircle, Target, CalendarClock } from 'lucide-react'
 import { useGoalsStore } from './goalsStore'
 import { GoalService } from '@/services/GoalService'
 import { Button } from '@/components/ui/button'
@@ -50,9 +43,7 @@ export function GoalDetailPage() {
         message={error}
         onRetry={() => {
           setError(null)
-          load().catch((err) =>
-            setError(err instanceof Error ? err.message : 'Failed to load')
-          )
+          load().catch((err) => setError(err instanceof Error ? err.message : 'Failed to load'))
         }}
       />
     )
@@ -150,14 +141,18 @@ export function GoalDetailPage() {
         <div className="relative size-128 shrink-0">
           <svg viewBox="0 0 128 128" className="size-128 -rotate-90">
             <circle
-              cx="64" cy="64" r="56"
+              cx="64"
+              cy="64"
+              r="56"
               fill="none"
               stroke="currentColor"
               className="text-border-subtle"
               strokeWidth="10"
             />
             <circle
-              cx="64" cy="64" r="56"
+              cx="64"
+              cy="64"
+              r="56"
               fill="none"
               stroke={color}
               strokeWidth="10"
@@ -245,7 +240,7 @@ export function GoalDetailPage() {
                     'text-body-sm font-semibold',
                     progress.probability === 'on_track' && 'text-income',
                     progress.probability === 'at_risk' && 'text-warning',
-                    progress.probability === 'off_track' && 'text-expense',
+                    progress.probability === 'off_track' && 'text-expense'
                   )}
                 >
                   {progress.probability === 'on_track'

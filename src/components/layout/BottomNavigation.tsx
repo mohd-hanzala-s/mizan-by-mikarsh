@@ -17,9 +17,7 @@ export function BottomNavigation() {
           className={({ isActive }) =>
             cn(
               'group relative flex min-h-touch flex-1 flex-col items-center justify-center gap-2 py-8 text-[11px] font-medium transition-all duration-fast',
-              isActive
-                ? 'text-accent font-semibold'
-                : 'text-text-secondary'
+              isActive ? 'text-accent font-semibold' : 'text-text-secondary'
             )
           }
         >

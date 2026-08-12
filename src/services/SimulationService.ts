@@ -103,7 +103,10 @@ function clamp(n: number, lo = 0, hi = 100): number {
   return Math.max(lo, Math.min(hi, n))
 }
 
-export function computeHealthScoreBreakdown(year: YearProjection, inputs: SimulationInputs): HealthBreakdown {
+export function computeHealthScoreBreakdown(
+  year: YearProjection,
+  inputs: SimulationInputs
+): HealthBreakdown {
   const { savings, investments, debt, income, expenses, savingsRate } = year
   const nextIncome = income * (1 + inputs.expectedSalaryGrowth / 100)
 
@@ -115,32 +118,103 @@ export function computeHealthScoreBreakdown(year: YearProjection, inputs: Simula
 
   const monthlyExpenses = expenses / 12
   const monthsCovered = monthlyExpenses > 0 ? savings / monthlyExpenses : 100
-  const liquidityScore = clamp((monthsCovered / Math.max(1, inputs.emergencyFundMonths)) * 100, 0, 100)
+  const liquidityScore = clamp(
+    (monthsCovered / Math.max(1, inputs.emergencyFundMonths)) * 100,
+    0,
+    100
+  )
 
   const totalAssets = savings + investments
-  const investmentRatioScore = clamp(totalAssets > 0 ? (investments / totalAssets) * 100 : 0, 0, 100)
+  const investmentRatioScore = clamp(
+    totalAssets > 0 ? (investments / totalAssets) * 100 : 0,
+    0,
+    100
+  )
 
-  const emergencyFundScore = clamp((monthsCovered / Math.max(1, inputs.emergencyFundMonths)) * 100, 0, 100)
+  const emergencyFundScore = clamp(
+    (monthsCovered / Math.max(1, inputs.emergencyFundMonths)) * 100,
+    0,
+    100
+  )
 
   const expenseRatio = income > 0 ? (expenses / income) * 100 : 100
   const budgetDisciplineScore = clamp(100 - expenseRatio, 0, 100)
 
   const annualizedIncomeForDebt = income * 3
-  const creditHealthScore = clamp(annualizedIncomeForDebt > 0 ? 100 - (debt / annualizedIncomeForDebt) * 100 : 0, 0, 100)
+  const creditHealthScore = clamp(
+    annualizedIncomeForDebt > 0 ? 100 - (debt / annualizedIncomeForDebt) * 100 : 0,
+    0,
+    100
+  )
 
   const nextExpenses = monthlyExpenses * 12 * (1 + inputs.inflationRate / 100)
-  const fireRatio = nextIncome > 0 ? (investments * (inputs.investmentReturn / 100)) / nextExpenses : 0
+  const fireRatio =
+    nextIncome > 0 ? (investments * (inputs.investmentReturn / 100)) / nextExpenses : 0
   const goalProgressScore = clamp(Math.min(100, fireRatio * 100), 0, 100)
 
-  const raw: Array<{ key: string; label: string; weight: number; value: number; description: string }> = [
-    { key: 'savingsRate', label: FACTOR_META.savingsRate.label, weight: HEALTH_WEIGHTS.savingsRate, value: Math.round(savingsRateScore * 10) / 10, description: FACTOR_META.savingsRate.description },
-    { key: 'debtToIncome', label: FACTOR_META.debtToIncome.label, weight: HEALTH_WEIGHTS.debtToIncome, value: Math.round(debtToIncomeScore * 10) / 10, description: FACTOR_META.debtToIncome.description },
-    { key: 'liquidity', label: FACTOR_META.liquidity.label, weight: HEALTH_WEIGHTS.liquidity, value: Math.round(liquidityScore * 10) / 10, description: FACTOR_META.liquidity.description },
-    { key: 'investmentRatio', label: FACTOR_META.investmentRatio.label, weight: HEALTH_WEIGHTS.investmentRatio, value: Math.round(investmentRatioScore * 10) / 10, description: FACTOR_META.investmentRatio.description },
-    { key: 'emergencyFund', label: FACTOR_META.emergencyFund.label, weight: HEALTH_WEIGHTS.emergencyFund, value: Math.round(emergencyFundScore * 10) / 10, description: FACTOR_META.emergencyFund.description },
-    { key: 'budgetDiscipline', label: FACTOR_META.budgetDiscipline.label, weight: HEALTH_WEIGHTS.budgetDiscipline, value: Math.round(budgetDisciplineScore * 10) / 10, description: FACTOR_META.budgetDiscipline.description },
-    { key: 'creditHealth', label: FACTOR_META.creditHealth.label, weight: HEALTH_WEIGHTS.creditHealth, value: Math.round(creditHealthScore * 10) / 10, description: FACTOR_META.creditHealth.description },
-    { key: 'goalProgress', label: FACTOR_META.goalProgress.label, weight: HEALTH_WEIGHTS.goalProgress, value: Math.round(goalProgressScore * 10) / 10, description: FACTOR_META.goalProgress.description },
+  const raw: Array<{
+    key: string
+    label: string
+    weight: number
+    value: number
+    description: string
+  }> = [
+    {
+      key: 'savingsRate',
+      label: FACTOR_META.savingsRate.label,
+      weight: HEALTH_WEIGHTS.savingsRate,
+      value: Math.round(savingsRateScore * 10) / 10,
+      description: FACTOR_META.savingsRate.description,
+    },
+    {
+      key: 'debtToIncome',
+      label: FACTOR_META.debtToIncome.label,
+      weight: HEALTH_WEIGHTS.debtToIncome,
+      value: Math.round(debtToIncomeScore * 10) / 10,
+      description: FACTOR_META.debtToIncome.description,
+    },
+    {
+      key: 'liquidity',
+      label: FACTOR_META.liquidity.label,
+      weight: HEALTH_WEIGHTS.liquidity,
+      value: Math.round(liquidityScore * 10) / 10,
+      description: FACTOR_META.liquidity.description,
+    },
+    {
+      key: 'investmentRatio',
+      label: FACTOR_META.investmentRatio.label,
+      weight: HEALTH_WEIGHTS.investmentRatio,
+      value: Math.round(investmentRatioScore * 10) / 10,
+      description: FACTOR_META.investmentRatio.description,
+    },
+    {
+      key: 'emergencyFund',
+      label: FACTOR_META.emergencyFund.label,
+      weight: HEALTH_WEIGHTS.emergencyFund,
+      value: Math.round(emergencyFundScore * 10) / 10,
+      description: FACTOR_META.emergencyFund.description,
+    },
+    {
+      key: 'budgetDiscipline',
+      label: FACTOR_META.budgetDiscipline.label,
+      weight: HEALTH_WEIGHTS.budgetDiscipline,
+      value: Math.round(budgetDisciplineScore * 10) / 10,
+      description: FACTOR_META.budgetDiscipline.description,
+    },
+    {
+      key: 'creditHealth',
+      label: FACTOR_META.creditHealth.label,
+      weight: HEALTH_WEIGHTS.creditHealth,
+      value: Math.round(creditHealthScore * 10) / 10,
+      description: FACTOR_META.creditHealth.description,
+    },
+    {
+      key: 'goalProgress',
+      label: FACTOR_META.goalProgress.label,
+      weight: HEALTH_WEIGHTS.goalProgress,
+      value: Math.round(goalProgressScore * 10) / 10,
+      description: FACTOR_META.goalProgress.description,
+    },
   ]
 
   const factors: HealthBreakdownFactor[] = raw.map((f) => ({
@@ -176,7 +250,12 @@ function defaultInputs(): SimulationInputs {
 export function getDefaultInputs(params: {
   transactions: Array<{ type: string; amount: number; isDeleted?: boolean }>
   accounts: Array<{ currentBalance: number; isArchived?: boolean; type?: string }>
-  loans: Array<{ currentBalance: number; status?: string; monthlyEMI: number; interestRate: number | null }>
+  loans: Array<{
+    currentBalance: number
+    status?: string
+    monthlyEMI: number
+    interestRate: number | null
+  }>
   investments: Array<{ units: number; currentPricePerUnit: number; status?: string }>
   identity: { monthlyIncome: number } | null
 }): SimulationInputs {
@@ -189,26 +268,30 @@ export function getDefaultInputs(params: {
   const recentIncomeTxns = incomeTxns.slice(-12)
   const recentExpenseTxns = expenseTxns.slice(-12)
 
-  const avgMonthlyIncome = recentIncomeTxns.length > 0
-    ? recentIncomeTxns.reduce((s, t) => s + t.amount, 0) / recentIncomeTxns.length
-    : incomeTxns.length > 0
-      ? incomeTxns.reduce((s, t) => s + t.amount, 0) / incomeTxns.length
-      : params.identity?.monthlyIncome ?? 0
+  const avgMonthlyIncome =
+    recentIncomeTxns.length > 0
+      ? recentIncomeTxns.reduce((s, t) => s + t.amount, 0) / recentIncomeTxns.length
+      : incomeTxns.length > 0
+        ? incomeTxns.reduce((s, t) => s + t.amount, 0) / incomeTxns.length
+        : (params.identity?.monthlyIncome ?? 0)
 
-  const avgMonthlyExpense = recentExpenseTxns.length > 0
-    ? recentExpenseTxns.reduce((s, t) => s + t.amount, 0) / recentExpenseTxns.length
-    : expenseTxns.length > 0
-      ? expenseTxns.reduce((s, t) => s + t.amount, 0) / expenseTxns.length
-      : 0
+  const avgMonthlyExpense =
+    recentExpenseTxns.length > 0
+      ? recentExpenseTxns.reduce((s, t) => s + t.amount, 0) / recentExpenseTxns.length
+      : expenseTxns.length > 0
+        ? expenseTxns.reduce((s, t) => s + t.amount, 0) / expenseTxns.length
+        : 0
 
   const activeLoans = params.loans.filter((l) => l.status === 'active')
   const totalDebt = activeLoans.reduce((s, l) => s + l.currentBalance, 0)
   const totalEMI = activeLoans.reduce((s, l) => s + l.monthlyEMI, 0)
-  const avgDebtRate = activeLoans.filter((l) => l.interestRate !== null).length > 0
-    ? activeLoans.filter((l) => l.interestRate !== null)
-        .reduce((s, l) => s + (l.interestRate ?? 0), 0) /
-      activeLoans.filter((l) => l.interestRate !== null).length
-    : 10
+  const avgDebtRate =
+    activeLoans.filter((l) => l.interestRate !== null).length > 0
+      ? activeLoans
+          .filter((l) => l.interestRate !== null)
+          .reduce((s, l) => s + (l.interestRate ?? 0), 0) /
+        activeLoans.filter((l) => l.interestRate !== null).length
+      : 10
 
   return {
     ...def,
@@ -261,9 +344,10 @@ export function runSimulation(inputs: SimulationInputs): SimulationResult {
     }
 
     const netWorth = savings + investments - debt
-    const savingsRate = netIncome > 0
-      ? clamp(((netIncome - yearlyExpenses - yearlySIP - yearlyEMI) / netIncome) * 100, 0, 100)
-      : 0
+    const savingsRate =
+      netIncome > 0
+        ? clamp(((netIncome - yearlyExpenses - yearlySIP - yearlyEMI) / netIncome) * 100, 0, 100)
+        : 0
 
     const monthlyExpenses = yearlyExpenses / 12
     const emergencyFund = Math.min(savings, monthlyExpenses * inputs.emergencyFundMonths)
@@ -289,7 +373,8 @@ export function runSimulation(inputs: SimulationInputs): SimulationResult {
 
     if (fiYear === null && y > 0) {
       const passiveIncome = investments * (inputs.investmentReturn / 100)
-      const nextYearExpenses = inputs.monthlyExpenses * 12 * Math.pow(1 + inputs.inflationRate / 100, y + 1)
+      const nextYearExpenses =
+        inputs.monthlyExpenses * 12 * Math.pow(1 + inputs.inflationRate / 100, y + 1)
       if (passiveIncome >= nextYearExpenses && debt <= 0) {
         fiYear = y
       }

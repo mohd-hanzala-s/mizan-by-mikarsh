@@ -50,10 +50,7 @@ export function SkeletonText({ lines = 3, className }: { lines?: number; classNa
 
 export function SkeletonCard({ className }: { className?: string }) {
   return (
-    <div
-      className={cn('card-sm rounded-xl p-16', className)}
-      aria-hidden="true"
-    >
+    <div className={cn('card-sm rounded-xl p-16', className)} aria-hidden="true">
       <div className="flex items-center gap-12">
         <Skeleton className="size-40 rounded-xl" />
         <div className="flex flex-1 flex-col gap-8">
@@ -73,10 +70,7 @@ export function SkeletonList({ count = 3 }: { count?: number }) {
   return (
     <div className="flex flex-col gap-8" aria-hidden="true">
       {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          className="card-sm rounded-xl flex items-center gap-12 p-16"
-        >
+        <div key={i} className="card-sm rounded-xl flex items-center gap-12 p-16">
           <Skeleton className="size-40 rounded-xl" />
           <div className="flex flex-1 flex-col gap-8">
             <Skeleton className="h-12 w-1/2 rounded-sm" />

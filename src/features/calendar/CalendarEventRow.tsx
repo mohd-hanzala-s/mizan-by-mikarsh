@@ -1,5 +1,13 @@
 import { format } from 'date-fns'
-import { AlertTriangle, CreditCard, FileWarning, Landmark, Receipt, Repeat, Target } from 'lucide-react'
+import {
+  AlertTriangle,
+  CreditCard,
+  FileWarning,
+  Landmark,
+  Receipt,
+  Repeat,
+  Target,
+} from 'lucide-react'
 import type { CalendarEvent, CalendarEventKind } from '@/services/CalendarService'
 import { cn } from '@/utils/cn'
 
@@ -67,9 +75,7 @@ export function CalendarEventRow({ event }: CalendarEventRowProps) {
         </div>
       </div>
       {hasAmount && (
-        <span
-          className={cn('shrink-0 text-body font-semibold tabular-nums', amountStyles(event))}
-        >
+        <span className={cn('shrink-0 text-body font-semibold tabular-nums', amountStyles(event))}>
           {isIn ? '+' : '−'}₹{Math.abs(event.amount).toLocaleString('en-IN')}
         </span>
       )}

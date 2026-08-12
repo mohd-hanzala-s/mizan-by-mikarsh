@@ -15,27 +15,32 @@ const GUARANTEES: Guarantee[] = [
   {
     icon: ShieldCheck,
     title: 'Everything Stays on Your Device',
-    description: 'Your financial data lives in a local database on your phone or computer. We never upload it to our servers because we have no servers for your data.',
+    description:
+      'Your financial data lives in a local database on your phone or computer. We never upload it to our servers because we have no servers for your data.',
   },
   {
     icon: CloudOff,
     title: 'No Uploads, Ever',
-    description: 'Mizan works fully offline. There is no backend, no cloud sync engine, and no data pipeline collecting your information behind the scenes.',
+    description:
+      'Mizan works fully offline. There is no backend, no cloud sync engine, and no data pipeline collecting your information behind the scenes.',
   },
   {
     icon: EyeOff,
     title: 'No Tracking',
-    description: 'We do not use analytics SDKs, tracking pixels, or behavioral monitoring. We have no idea how you use Mizan — and we prefer it that way.',
+    description:
+      'We do not use analytics SDKs, tracking pixels, or behavioral monitoring. We have no idea how you use Mizan — and we prefer it that way.',
   },
   {
     icon: Ban,
     title: 'No Ads, No Data Brokering',
-    description: 'Mizan will never show you an advertisement or sell your attention. Our business model is simple: you either use the app for free or choose to support us directly.',
+    description:
+      'Mizan will never show you an advertisement or sell your attention. Our business model is simple: you either use the app for free or choose to support us directly.',
   },
   {
     icon: UserCheck,
     title: 'No Mandatory Login',
-    description: 'You do not need an account to use Mizan. There is no sign-up wall, no email verification, no phone number required. Open the app and start managing your money.',
+    description:
+      'You do not need an account to use Mizan. There is no sign-up wall, no email verification, no phone number required. Open the app and start managing your money.',
   },
 ]
 
@@ -46,7 +51,7 @@ export function PrivacyPage({ onBack }: PrivacyPageProps) {
       <div className="px-20 pb-16 pt-32 md:px-32">
         <button
           type="button"
-          onClick={() => onBack ? onBack() : navigate('/about')}
+          onClick={() => (onBack ? onBack() : navigate('/about'))}
           className="mb-20 flex size-40 items-center justify-center rounded-xl text-text-secondary hover:text-text-primary hover:shadow-glass-sm transition-all duration-fast"
           aria-label="Back to About"
         >
@@ -54,8 +59,8 @@ export function PrivacyPage({ onBack }: PrivacyPageProps) {
         </button>
         <h1 className="text-display text-text-primary">Privacy First</h1>
         <p className="mt-8 text-body-lg text-text-secondary">
-          Your financial life is yours. We have built Mizan to prove that
-          powerful software does not require surveillance.
+          Your financial life is yours. We have built Mizan to prove that powerful software does not
+          require surveillance.
         </p>
       </div>
 
@@ -63,10 +68,9 @@ export function PrivacyPage({ onBack }: PrivacyPageProps) {
         <section className="card rounded-2xl p-20 md:p-28">
           <h2 className="mb-16 text-h2 text-text-primary">Privacy by Default</h2>
           <p className="text-body leading-relaxed text-text-secondary">
-            Most apps treat privacy as an afterthought — something you can
-            configure in settings if you dig deep enough. We treat it as the
-            starting point. Every feature in Mizan begins with the question:
-            does this compromise the user&apos;s privacy? If the answer is yes,
+            Most apps treat privacy as an afterthought — something you can configure in settings if
+            you dig deep enough. We treat it as the starting point. Every feature in Mizan begins
+            with the question: does this compromise the user&apos;s privacy? If the answer is yes,
             we find another way.
           </p>
         </section>
@@ -94,23 +98,21 @@ export function PrivacyPage({ onBack }: PrivacyPageProps) {
             <h2 className="text-h2 text-text-primary">Offline First</h2>
           </div>
           <p className="text-body leading-relaxed text-text-secondary">
-            Mizan is designed to work entirely offline. Your data is stored in a
-            local database on your device. Every calculation, every report, every
-            chart is generated locally. This means Mizan works in airplane mode,
-            underground, or anywhere without a connection — and your data never
-            leaves your device in the process.
+            Mizan is designed to work entirely offline. Your data is stored in a local database on
+            your device. Every calculation, every report, every chart is generated locally. This
+            means Mizan works in airplane mode, underground, or anywhere without a connection — and
+            your data never leaves your device in the process.
           </p>
         </section>
 
         <section className="card rounded-2xl p-20 md:p-28">
           <h2 className="mb-12 text-h2 text-text-primary">Future Cloud Backup</h2>
           <p className="text-body leading-relaxed text-text-secondary">
-            We understand that backing up your data is important. If and when
-            we introduce cloud backup in the future, it will be entirely
-            optional, end-to-end encrypted, and opt-in by default. You will
-            never be forced to upload your data, and the app will never do so
-            without your explicit permission. Even then, the local-first
-            experience will remain the default.
+            We understand that backing up your data is important. If and when we introduce cloud
+            backup in the future, it will be entirely optional, end-to-end encrypted, and opt-in by
+            default. You will never be forced to upload your data, and the app will never do so
+            without your explicit permission. Even then, the local-first experience will remain the
+            default.
           </p>
         </section>
       </div>

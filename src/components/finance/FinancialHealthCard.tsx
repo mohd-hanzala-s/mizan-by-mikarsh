@@ -184,7 +184,10 @@ export function FinancialHealthCard({
             <div key={f.key} className="flex items-center justify-between gap-8 py-8">
               <span className="min-w-0 truncate text-body-sm text-text-secondary">
                 {f.label}
-                <span className="text-caption text-text-tertiary"> &middot; weight {f.weight}%</span>
+                <span className="text-caption text-text-tertiary">
+                  {' '}
+                  &middot; weight {f.weight}%
+                </span>
               </span>
               <div className="h-8 w-64 shrink-0 overflow-hidden rounded-full bg-border-subtle dark:bg-surface-raised">
                 <div

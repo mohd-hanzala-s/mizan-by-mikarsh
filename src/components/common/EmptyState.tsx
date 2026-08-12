@@ -22,15 +22,14 @@ export function EmptyState({
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-24 py-48 text-center">
       <div className="mb-24 flex flex-col items-center gap-20 max-w-xs">
-        {illustration ?? (
-          Icon && (
+        {illustration ??
+          (Icon && (
             <div className="card-input flex size-80 items-center justify-center rounded-3xl">
               <div className="flex size-56 items-center justify-center rounded-2xl shadow-glass-pressed bg-surface">
                 <Icon className="size-28 text-text-tertiary" aria-hidden="true" />
               </div>
             </div>
-          )
-        )}
+          ))}
         <div className="flex flex-col gap-6">
           <h2 className="text-h3 font-bold text-text-primary">{title}</h2>
           <p className="text-body-sm text-text-secondary max-w-xs">{description}</p>

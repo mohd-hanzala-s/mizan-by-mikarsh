@@ -180,7 +180,7 @@ export function SmartEntryInput({ onSaved, initial, editingId }: SmartEntryInput
             role="radio"
             aria-checked={type === t}
             onClick={() => setManualType(t)}
-              className={cn(
+            className={cn(
               'min-h-touch rounded-sm px-16 text-body-sm font-medium capitalize transition-colors duration-fast',
               type === t
                 ? t === 'expense'

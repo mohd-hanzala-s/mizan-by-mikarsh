@@ -22,15 +22,15 @@ export const VaultRepository = {
     const now = new Date()
     const cutoff = new Date(now.getTime() + daysThreshold * 24 * 60 * 60 * 1000).toISOString()
     return db.vault_documents
-      .filter((d) => d.expiryDate !== null && d.expiryDate <= cutoff && d.expiryDate >= now.toISOString())
+      .filter(
+        (d) => d.expiryDate !== null && d.expiryDate <= cutoff && d.expiryDate >= now.toISOString()
+      )
       .toArray()
   },
 
   async getExpired(): Promise<VaultDocument[]> {
     const now = new Date().toISOString()
-    return db.vault_documents
-      .filter((d) => d.expiryDate !== null && d.expiryDate < now)
-      .toArray()
+    return db.vault_documents.filter((d) => d.expiryDate !== null && d.expiryDate < now).toArray()
   },
 
   async getFavorites(): Promise<VaultDocument[]> {
@@ -50,7 +50,9 @@ export const VaultRepository = {
       .toArray()
   },
 
-  async create(data: Omit<VaultDocument, 'id' | 'createdAt' | 'updatedAt'>): Promise<VaultDocument> {
+  async create(
+    data: Omit<VaultDocument, 'id' | 'createdAt' | 'updatedAt'>
+  ): Promise<VaultDocument> {
     const now = new Date().toISOString()
     const doc: VaultDocument = {
       ...data,

@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, isToday, addMonths, subMonths } from 'date-fns'
 import {
-  Bell,
-  Target,
-  Vault,
-  Shield,
-  ChevronLeft,
-  ChevronRight,
-  ArrowRight,
-} from 'lucide-react'
+  format,
+  startOfMonth,
+  endOfMonth,
+  eachDayOfInterval,
+  getDay,
+  isToday,
+  addMonths,
+  subMonths,
+} from 'date-fns'
+import { Bell, Target, Vault, Shield, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import { useTransactionsStore } from '@/features/transactions/transactionsStore'
 import { useRecurringStore } from '@/features/recurring/recurringStore'
 import { useGoalsStore } from '@/features/goals/goalsStore'
@@ -67,7 +68,10 @@ function CalendarMini() {
       </div>
       <div className="grid grid-cols-7 gap-2">
         {WEEKDAY_LABELS.map((d) => (
-          <div key={d} className="flex h-28 items-center justify-center text-[10px] font-semibold text-text-tertiary uppercase">
+          <div
+            key={d}
+            className="flex h-28 items-center justify-center text-[10px] font-semibold text-text-tertiary uppercase"
+          >
             {d}
           </div>
         ))}
@@ -115,22 +119,17 @@ export function PlannerHubPage() {
     loadGoals()
   }, [loadTx, loadRecurring, loadGoals])
 
-  const obligations = useMemo(
-    () => getUpcomingObligations(recurringRules, 30),
-    [recurringRules]
-  )
+  const obligations = useMemo(() => getUpcomingObligations(recurringRules, 30), [recurringRules])
 
   const goalsWithDeadlines = useMemo(
-    () => goals
-      .filter((g) => g.status === 'active' && g.deadline)
-      .sort((a, b) => new Date(a.deadline!).getTime() - new Date(b.deadline!).getTime()),
+    () =>
+      goals
+        .filter((g) => g.status === 'active' && g.deadline)
+        .sort((a, b) => new Date(a.deadline!).getTime() - new Date(b.deadline!).getTime()),
     [goals]
   )
 
-  const activeGoals = useMemo(
-    () => goals.filter((g) => g.status === 'active'),
-    [goals]
-  )
+  const activeGoals = useMemo(() => goals.filter((g) => g.status === 'active'), [goals])
 
   if (txIsLoading || recIsLoading || goalsIsLoading || !settings) {
     return <SkeletonPage sections={3} />
@@ -145,7 +144,9 @@ export function PlannerHubPage() {
 
       <section className="card flex flex-col gap-14 p-20">
         <div className="flex items-center justify-between">
-          <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">Calendar</h2>
+          <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">
+            Calendar
+          </h2>
           <Button variant="tertiary" size="sm" onClick={() => navigate('/calendar')}>
             Full Calendar <ArrowRight className="size-14" aria-hidden="true" />
           </Button>
@@ -155,7 +156,9 @@ export function PlannerHubPage() {
 
       <section className="card flex flex-col gap-14 p-20">
         <div className="flex items-center justify-between">
-          <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">Upcoming Bills</h2>
+          <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">
+            Upcoming Bills
+          </h2>
           <Button variant="tertiary" size="sm" onClick={() => navigate('/recurring')}>
             Manage <ArrowRight className="size-14" aria-hidden="true" />
           </Button>
@@ -172,7 +175,9 @@ export function PlannerHubPage() {
                     {o.type === 'income' ? 'Incoming' : 'Due'} {format(o.date, 'd MMM yyyy')}
                   </p>
                 </div>
-                <span className={`shrink-0 tabular-nums text-body font-bold ${o.type === 'income' ? 'text-income' : 'text-expense'}`}>
+                <span
+                  className={`shrink-0 tabular-nums text-body font-bold ${o.type === 'income' ? 'text-income' : 'text-expense'}`}
+                >
                   {o.type === 'income' ? '+' : '\u2212'}\u20B9{o.amount.toLocaleString('en-IN')}
                 </span>
               </div>
@@ -183,13 +188,17 @@ export function PlannerHubPage() {
 
       <section className="card flex flex-col gap-14 p-20">
         <div className="flex items-center justify-between">
-          <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">Goals &amp; Deadlines</h2>
+          <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">
+            Goals &amp; Deadlines
+          </h2>
           <Button variant="tertiary" size="sm" onClick={() => navigate('/goals')}>
             View All <ArrowRight className="size-14" aria-hidden="true" />
           </Button>
         </div>
         {activeGoals.length === 0 ? (
-          <p className="text-body-sm text-text-secondary py-8">Set a goal with a deadline to track it here.</p>
+          <p className="text-body-sm text-text-secondary py-8">
+            Set a goal with a deadline to track it here.
+          </p>
         ) : goalsWithDeadlines.length === 0 ? (
           <div className="flex flex-col gap-8">
             {activeGoals.slice(0, 3).map((goal) => (
@@ -216,7 +225,9 @@ export function PlannerHubPage() {
                   <div className="min-w-0 flex items-center gap-8">
                     <Target className="size-16 shrink-0 text-text-tertiary" aria-hidden="true" />
                     <div>
-                      <p className="truncate text-body font-semibold text-text-primary">{goal.name}</p>
+                      <p className="truncate text-body font-semibold text-text-primary">
+                        {goal.name}
+                      </p>
                       <p className="text-caption text-text-tertiary mt-1">
                         {format(new Date(goal.deadline!), 'd MMM yyyy')}
                       </p>
@@ -227,7 +238,12 @@ export function PlannerHubPage() {
                       {progress.percentage.toFixed(0)}%
                     </span>
                     {daysLeft !== null && (
-                      <p className={cn('text-caption font-medium', daysLeft <= 7 ? 'text-expense' : 'text-text-tertiary')}>
+                      <p
+                        className={cn(
+                          'text-caption font-medium',
+                          daysLeft <= 7 ? 'text-expense' : 'text-text-tertiary'
+                        )}
+                      >
                         {daysLeft} day{daysLeft !== 1 ? 's' : ''} left
                       </p>
                     )}
@@ -241,7 +257,9 @@ export function PlannerHubPage() {
 
       <section className="card flex flex-col gap-14 p-20">
         <div className="flex items-center justify-between">
-          <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">Quick Access</h2>
+          <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">
+            Quick Access
+          </h2>
         </div>
         <div className="grid grid-cols-2 gap-12">
           <button
@@ -266,7 +284,9 @@ export function PlannerHubPage() {
       </section>
 
       <section className="card flex flex-col gap-14 p-20">
-        <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">Warranty &amp; Insurance</h2>
+        <h2 className="text-overline font-bold tracking-wider text-text-tertiary uppercase">
+          Warranty &amp; Insurance
+        </h2>
         <div className="flex flex-col items-center gap-12 py-16">
           <Shield className="size-40 text-brand-teal400/40" aria-hidden="true" />
           <p className="text-body-sm text-text-secondary text-center max-w-[280px]">

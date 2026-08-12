@@ -64,7 +64,7 @@ function FAQAccordion({ question, answer }: FAQItem) {
         <ChevronDown
           className={cn(
             'size-20 shrink-0 text-text-tertiary transition-transform duration-standard',
-            open && 'rotate-180',
+            open && 'rotate-180'
           )}
           aria-hidden="true"
         />
@@ -85,7 +85,7 @@ export function FAQPage({ onBack }: FAQPageProps) {
       <div className="px-20 pb-16 pt-32 md:px-32">
         <button
           type="button"
-          onClick={() => onBack ? onBack() : navigate('/about')}
+          onClick={() => (onBack ? onBack() : navigate('/about'))}
           className="mb-20 flex size-40 items-center justify-center rounded-xl text-text-secondary hover:text-text-primary hover:shadow-glass-sm transition-all duration-fast"
           aria-label="Back to About"
         >

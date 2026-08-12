@@ -18,11 +18,7 @@ export interface ExpensesData {
   other: number
 }
 
-export function ExpensesStep({
-  onNext,
-}: {
-  onNext: (data: ExpensesData) => void
-}) {
+export function ExpensesStep({ onNext }: { onNext: (data: ExpensesData) => void }) {
   const [values, setValues] = useState<Record<string, string>>({})
 
   function handleChange(key: string, val: string) {

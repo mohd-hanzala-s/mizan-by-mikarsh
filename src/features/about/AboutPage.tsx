@@ -105,9 +105,7 @@ export function AboutPage() {
 
       <div className="mt-auto px-20 pb-32 pt-12 text-center md:px-32">
         <p className="text-caption text-text-tertiary">Mizan v1.0.0</p>
-        <p className="mt-4 text-caption text-text-tertiary">
-          Made with care by M I K A R S H
-        </p>
+        <p className="mt-4 text-caption text-text-tertiary">Made with care by M I K A R S H</p>
       </div>
     </div>
   )

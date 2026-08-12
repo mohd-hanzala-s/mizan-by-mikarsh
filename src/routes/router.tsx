@@ -98,9 +98,7 @@ const PrivacyPage = lazy(() =>
 const FeaturesPage = lazy(() =>
   import('@/features/about/FeaturesPage').then((m) => ({ default: m.FeaturesPage }))
 )
-const FAQPage = lazy(() =>
-  import('@/features/about/FAQPage').then((m) => ({ default: m.FAQPage }))
-)
+const FAQPage = lazy(() => import('@/features/about/FAQPage').then((m) => ({ default: m.FAQPage })))
 const SimulatorPage = lazy(() =>
   import('@/features/simulator/SimulatorPage').then((m) => ({ default: m.SimulatorPage }))
 )

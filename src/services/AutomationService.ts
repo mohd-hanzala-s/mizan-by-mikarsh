@@ -64,10 +64,7 @@ function detectUnusualSpending(
 
   const currentWeekExpense = transactions
     .filter(
-      (t) =>
-        !t.isDeleted &&
-        t.type === 'expense' &&
-        inRange(t.transactionDate, weekStart, now)
+      (t) => !t.isDeleted && t.type === 'expense' && inRange(t.transactionDate, weekStart, now)
     )
     .reduce((s, t) => s + t.amount, 0)
 
@@ -75,9 +72,7 @@ function detectUnusualSpending(
   const fourWeekExpenses = transactions
     .filter(
       (t) =>
-        !t.isDeleted &&
-        t.type === 'expense' &&
-        inRange(t.transactionDate, fourWeekStart, weekStart)
+        !t.isDeleted && t.type === 'expense' && inRange(t.transactionDate, fourWeekStart, weekStart)
     )
     .reduce((s, t) => s + t.amount, 0)
 
@@ -128,8 +123,7 @@ function detectSavingsOpportunity(
   const current = series[series.length - 1]
   if (!current || current.income <= 0) return []
 
-  const savingsRate =
-    current.savingsRate !== null ? current.savingsRate : 0
+  const savingsRate = current.savingsRate !== null ? current.savingsRate : 0
   if (savingsRate >= 20) return []
 
   const breakdown = getCategoryBreakdown(transactions, categories, reference, 5)
@@ -153,31 +147,22 @@ function detectSavingsOpportunity(
   ]
 }
 
-function detectEmiIncrease(
-  loans: Loan[],
-  payments: LoanPayment[],
-): AutoDetection[] {
+function detectEmiIncrease(loans: Loan[], payments: LoanPayment[]): AutoDetection[] {
   const results: AutoDetection[] = []
 
   for (const loan of loans) {
     if (loan.status !== 'active' || loan.currentBalance <= 0) continue
     const loanPayments = payments
       .filter((p) => p.loanId === loan.id && p.amountPaid > 0)
-      .sort(
-        (a, b) =>
-          new Date(a.paymentDate).getTime() - new Date(b.paymentDate).getTime()
-      )
+      .sort((a, b) => new Date(a.paymentDate).getTime() - new Date(b.paymentDate).getTime())
 
     if (loanPayments.length < 2) continue
 
     const lastPayment = loanPayments[loanPayments.length - 1]
     const historical = loanPayments.slice(0, -1)
-    const avgHistorical =
-      historical.reduce((s, p) => s + p.amountPaid, 0) / historical.length
+    const avgHistorical = historical.reduce((s, p) => s + p.amountPaid, 0) / historical.length
     const pctIncrease =
-      avgHistorical > 0
-        ? ((lastPayment.amountPaid - avgHistorical) / avgHistorical) * 100
-        : 0
+      avgHistorical > 0 ? ((lastPayment.amountPaid - avgHistorical) / avgHistorical) * 100 : 0
 
     if (pctIncrease > 20) {
       results.push({
@@ -229,14 +214,7 @@ export function detectAll(params: {
   categories: Category[]
   reference?: Date
 }): AutoDetection[] {
-  const {
-    transactions,
-    rules,
-    loans,
-    payments,
-    categories,
-    reference = new Date(),
-  } = params
+  const { transactions, rules, loans, payments, categories, reference = new Date() } = params
 
   const results: AutoDetection[] = [
     ...detectSalaryCredited(transactions, reference),

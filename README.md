@@ -64,9 +64,9 @@ changes automatically.
 switched by the `VITE_CAPACITOR` env var (see `apps/web/vite.config.ts` and
 `apps/web/src/main.tsx`):
 
-| | `npm run build` (web/PWA) | `npm run build:capacitor` (Android) |
-|---|---|---|
-| Base path | `VITE_BASE_PATH` (GitHub Pages subpath) | `/` |
+|                | `npm run build` (web/PWA)                    | `npm run build:capacitor` (Android)                                                                                            |
+| -------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Base path      | `VITE_BASE_PATH` (GitHub Pages subpath)      | `/`                                                                                                                            |
 | Service worker | Registered (offline caching for the browser) | Skipped — Capacitor bundles assets locally; a browser SW would just be redundant and can cause stale-content bugs in a WebView |
 
 Nothing else differs — same components, same Dexie database, same

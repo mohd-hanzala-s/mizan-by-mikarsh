@@ -42,7 +42,7 @@ export function BudgetCard({ status, category, onClick }: BudgetCardProps) {
     >
       <div className="flex items-center justify-between gap-12">
         <span className="flex items-center gap-10 text-body font-semibold text-text-primary min-w-0">
-            <span
+          <span
             className="flex size-32 shrink-0 items-center justify-center rounded-lg transition-transform group-hover:scale-105 shadow-pressed"
             style={{
               backgroundColor: isGlobal ? 'rgba(15,77,69,0.12)' : `${category?.color}18`,
@@ -58,7 +58,12 @@ export function BudgetCard({ status, category, onClick }: BudgetCardProps) {
           <span className="truncate">{label}</span>
         </span>
         <div className="flex items-center gap-8 shrink-0">
-          <span className={cn('rounded-full px-8 py-2 text-caption font-semibold bg-surface', tag.style)}>
+          <span
+            className={cn(
+              'rounded-full px-8 py-2 text-caption font-semibold bg-surface',
+              tag.style
+            )}
+          >
             {tag.label}
           </span>
           <span className="font-heading text-body font-bold tabular-nums text-text-primary">

@@ -712,8 +712,19 @@ export function computeHealthBreakdown(params: {
   loans: Loan[]
   payments: LoanPayment[]
   budgets: Budget[]
-  goals: Array<{ status: string; currentAmount: number; targetAmount: number; createdAt: string; deadline: string | null }>
-  investments: Array<{ status: string; units: number; currentPricePerUnit: number; avgCostPerUnit: number }>
+  goals: Array<{
+    status: string
+    currentAmount: number
+    targetAmount: number
+    createdAt: string
+    deadline: string | null
+  }>
+  investments: Array<{
+    status: string
+    units: number
+    currentPricePerUnit: number
+    avgCostPerUnit: number
+  }>
   budgetMonthStart: number
   reference?: Date
 }): HealthBreakdownFactor[] {
@@ -733,10 +744,9 @@ export function computeHealthBreakdown(params: {
 
   const savingsRateValue = current?.savingsRate !== null ? clamp(current?.savingsRate ?? 0) : 0
 
-  const monthlyIncome = (current?.income ?? 0) / Math.max(1, series.filter((s) => s.income > 0).length)
-  const totalEMI = loans
-    .filter((l) => l.status === 'active')
-    .reduce((s, l) => s + l.monthlyEMI, 0)
+  const monthlyIncome =
+    (current?.income ?? 0) / Math.max(1, series.filter((s) => s.income > 0).length)
+  const totalEMI = loans.filter((l) => l.status === 'active').reduce((s, l) => s + l.monthlyEMI, 0)
   const debtToIncomeValue = monthlyIncome > 0 ? clamp(100 - (totalEMI / monthlyIncome) * 100) : 0
 
   const totalBalance = accounts
@@ -750,8 +760,7 @@ export function computeHealthBreakdown(params: {
     .filter((i) => i.status === 'active')
     .reduce((s, i) => s + i.units * i.currentPricePerUnit, 0)
   const totalAssets = totalBalance + investmentTotal
-  const investmentRatioValue =
-    totalAssets > 0 ? clamp((investmentTotal / totalAssets) * 100) : 0
+  const investmentRatioValue = totalAssets > 0 ? clamp((investmentTotal / totalAssets) * 100) : 0
 
   const emergencyFundMonths = Math.min(monthsCovered, 12)
   const emergencyFundValue = clamp((emergencyFundMonths / 6) * 100)
@@ -773,7 +782,8 @@ export function computeHealthBreakdown(params: {
   const totalDebt = loans
     .filter((l) => l.status === 'active')
     .reduce((s, l) => s + l.currentBalance, 0)
-  const creditHealthValue = monthlyIncome > 0 ? clamp(100 - (totalDebt / (monthlyIncome * 12)) * 100) : 0
+  const creditHealthValue =
+    monthlyIncome > 0 ? clamp(100 - (totalDebt / (monthlyIncome * 12)) * 100) : 0
 
   const activeGoals = goals.filter((g) => g.status === 'active')
   const goalProgressValue =
@@ -782,9 +792,7 @@ export function computeHealthBreakdown(params: {
       : clamp(
           avg(
             activeGoals.map((g) =>
-              g.targetAmount > 0
-                ? (g.currentAmount / g.targetAmount) * 100
-                : 0
+              g.targetAmount > 0 ? (g.currentAmount / g.targetAmount) * 100 : 0
             )
           )
         )
@@ -802,9 +810,7 @@ export function computeHealthBreakdown(params: {
       label: 'Debt-to-Income',
       weight: 20,
       value: Math.round(debtToIncomeValue * 10) / 10,
-      displayValue: monthlyIncome > 0
-        ? `${((totalEMI / monthlyIncome) * 100).toFixed(1)}%`
-        : '0%',
+      displayValue: monthlyIncome > 0 ? `${((totalEMI / monthlyIncome) * 100).toFixed(1)}%` : '0%',
     },
     {
       key: 'liquidity',

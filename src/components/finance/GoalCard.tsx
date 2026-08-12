@@ -80,9 +80,7 @@ export function GoalCard({ progress, onClick, compact = false }: GoalCardProps) 
                 <span
                   className={cn(
                     'rounded-full px-8 py-2 text-caption font-semibold shadow-pressed',
-                    isCompleted
-                      ? 'bg-income-subtle text-income'
-                      : 'bg-surface text-text-tertiary'
+                    isCompleted ? 'bg-income-subtle text-income' : 'bg-surface text-text-tertiary'
                   )}
                 >
                   {STATUS_LABELS[goal.status]}
@@ -95,7 +93,7 @@ export function GoalCard({ progress, onClick, compact = false }: GoalCardProps) 
                     probability === 'on_track' && 'bg-income-subtle text-income',
                     probability === 'at_risk' && 'bg-warning-subtle text-warning',
                     probability === 'off_track' && 'bg-expense-subtle text-expense',
-                    probability === null && 'bg-border-subtle text-text-tertiary',
+                    probability === null && 'bg-border-subtle text-text-tertiary'
                   )}
                 >
                   {probability === 'on_track'
@@ -110,10 +108,12 @@ export function GoalCard({ progress, onClick, compact = false }: GoalCardProps) 
             </div>
           </div>
           {!compact && (
-            <p className="text-body-sm font-medium text-text-secondary mt-2">{'\u20B9'}
+            <p className="text-body-sm font-medium text-text-secondary mt-2">
+              {'\u20B9'}
               {goal.currentAmount.toLocaleString('en-IN')}{' '}
               <span className="text-text-tertiary font-normal">
-                of {'\u20B9'}{goal.targetAmount.toLocaleString('en-IN')}
+                of {'\u20B9'}
+                {goal.targetAmount.toLocaleString('en-IN')}
               </span>
             </p>
           )}
@@ -125,9 +125,7 @@ export function GoalCard({ progress, onClick, compact = false }: GoalCardProps) 
           </div>
           {!compact && (
             <div className="mt-6 flex items-center justify-between text-body-sm font-medium tabular-nums">
-              <span
-                className={isCompleted ? 'text-income font-semibold' : 'text-text-secondary'}
-              >
+              <span className={isCompleted ? 'text-income font-semibold' : 'text-text-secondary'}>
                 {isCompleted
                   ? 'Goal Reached!'
                   : `\u20B9${remaining.toLocaleString('en-IN')} remaining`}

@@ -180,8 +180,8 @@ export function AccountForm({ existing, onSaved, onCancel }: AccountFormProps) {
           ))}
         </div>
         <p className="text-caption text-text-tertiary">
-          Display only — Mizan doesn&rsquo;t convert between currencies. Balances across accounts
-          in different currencies are shown separately, not blended into one total.
+          Display only — Mizan doesn&rsquo;t convert between currencies. Balances across accounts in
+          different currencies are shown separately, not blended into one total.
         </p>
       </div>
 

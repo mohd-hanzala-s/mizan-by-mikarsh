@@ -27,26 +27,22 @@ describe('Dashboard with data', () => {
     })
   })
 
-  it(
-    'shows metric cards and recent activity instead of the empty state',
-    async () => {
-      render(<App />)
+  it('shows metric cards and recent activity instead of the empty state', async () => {
+    render(<App />)
 
-      await waitFor(
-        () => {
-          // "Income" also appears in the Dashboard's Monthly Recap widget
-          // (a summary of the same underlying data), so scope this check
-          // to the main metrics row rather than assuming a single match.
-          expect(screen.getAllByText('Income').length).toBeGreaterThan(0)
-        },
-        { timeout: 10000 }
-      )
+    await waitFor(
+      () => {
+        // "Income" also appears in the Dashboard's Monthly Recap widget
+        // (a summary of the same underlying data), so scope this check
+        // to the main metrics row rather than assuming a single match.
+        expect(screen.getAllByText('Income').length).toBeGreaterThan(0)
+      },
+      { timeout: 10000 }
+    )
 
-      expect(screen.queryByText(/no activity yet/i)).not.toBeInTheDocument()
-      expect(screen.getAllByText('Expense').length).toBeGreaterThan(0)
-      expect(screen.getByText('Salary')).toBeInTheDocument()
-      expect(screen.getByText('Tea')).toBeInTheDocument()
-    },
-    15000
-  )
+    expect(screen.queryByText(/no activity yet/i)).not.toBeInTheDocument()
+    expect(screen.getAllByText('Expense').length).toBeGreaterThan(0)
+    expect(screen.getByText('Salary')).toBeInTheDocument()
+    expect(screen.getByText('Tea')).toBeInTheDocument()
+  }, 15000)
 })

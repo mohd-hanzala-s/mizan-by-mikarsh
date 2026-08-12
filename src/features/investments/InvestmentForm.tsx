@@ -148,9 +148,7 @@ export function InvestmentForm({ editing, onSaved, onCancel }: InvestmentFormPro
             min={0}
             step="0.01"
             value={currentPricePerUnit ?? ''}
-            onChange={(e) =>
-              setCurrentPricePerUnit(e.target.value ? Number(e.target.value) : null)
-            }
+            onChange={(e) => setCurrentPricePerUnit(e.target.value ? Number(e.target.value) : null)}
             aria-label="Current price per unit"
             className={numberInputClass}
           />

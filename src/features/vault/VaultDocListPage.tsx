@@ -26,7 +26,11 @@ import type { VaultDocument, VaultDocumentType } from '@/types/entities'
 
 const DOC_TYPE_META: Record<
   VaultDocumentType,
-  { label: string; icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>; color: string }
+  {
+    label: string
+    icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>
+    color: string
+  }
 > = {
   receipt: { label: 'Receipts', icon: ReceiptText, color: 'text-income' },
   bill: { label: 'Bills', icon: FileText, color: 'text-expense' },
@@ -41,7 +45,11 @@ const DOC_TYPE_META: Record<
 
 function formatDate(iso: string | null): string {
   if (!iso) return ''
-  return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+  return new Date(iso).toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
 }
 
 function daysUntil(dateStr: string): number {
@@ -89,7 +97,9 @@ export function VaultDocListPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typeFilter, debouncedSearch])
 
-  const headerLabel = typeFilter ? DOC_TYPE_META[typeFilter]?.label ?? 'Documents' : 'All Documents'
+  const headerLabel = typeFilter
+    ? (DOC_TYPE_META[typeFilter]?.label ?? 'Documents')
+    : 'All Documents'
   const headerIcon = typeFilter ? DOC_TYPE_META[typeFilter]?.icon : FileText
   const HeaderIcon = headerIcon
 
@@ -116,13 +126,22 @@ export function VaultDocListPage() {
           <ArrowLeft className="size-20" aria-hidden="true" />
         </button>
         <div className="flex items-center gap-8">
-          <HeaderIcon className={cn('size-20', typeFilter ? DOC_TYPE_META[typeFilter].color : 'text-text-secondary')} aria-hidden="true" />
+          <HeaderIcon
+            className={cn(
+              'size-20',
+              typeFilter ? DOC_TYPE_META[typeFilter].color : 'text-text-secondary'
+            )}
+            aria-hidden="true"
+          />
           <h1 className="text-h2 text-text-primary">{headerLabel}</h1>
         </div>
       </div>
 
       <div className="relative">
-        <Search className="absolute left-12 top-1/2 size-16 -translate-y-1/2 text-text-tertiary pointer-events-none" aria-hidden="true" />
+        <Search
+          className="absolute left-12 top-1/2 size-16 -translate-y-1/2 text-text-tertiary pointer-events-none"
+          aria-hidden="true"
+        />
         <input
           type="search"
           value={searchQuery}
@@ -147,7 +166,13 @@ export function VaultDocListPage() {
       ) : documents.length === 0 ? (
         <EmptyState
           icon={typeFilter ? DOC_TYPE_META[typeFilter].icon : FolderOpen}
-          title={debouncedSearch ? 'No results found' : typeFilter ? `No ${headerLabel.toLowerCase()} yet` : 'No documents yet'}
+          title={
+            debouncedSearch
+              ? 'No results found'
+              : typeFilter
+                ? `No ${headerLabel.toLowerCase()} yet`
+                : 'No documents yet'
+          }
           description={
             debouncedSearch
               ? `No documents matching "${debouncedSearch}". Try a different search term.`
@@ -190,18 +215,25 @@ export function VaultDocListPage() {
                   {doc.tags.length > 0 && (
                     <div className="mt-4 flex flex-wrap gap-4">
                       {doc.tags.slice(0, 3).map((tag) => (
-                        <span key={tag} className="rounded-md bg-border-subtle px-6 py-1 text-caption text-text-tertiary">
+                        <span
+                          key={tag}
+                          className="rounded-md bg-border-subtle px-6 py-1 text-caption text-text-tertiary"
+                        >
                           {tag}
                         </span>
                       ))}
                       {doc.tags.length > 3 && (
-                        <span className="text-caption text-text-tertiary">+{doc.tags.length - 3}</span>
+                        <span className="text-caption text-text-tertiary">
+                          +{doc.tags.length - 3}
+                        </span>
                       )}
                     </div>
                   )}
                 </div>
                 <div className="flex shrink-0 items-center gap-4">
-                  {doc.isFavorite && <Star className="size-14 fill-accent text-accent" aria-hidden="true" />}
+                  {doc.isFavorite && (
+                    <Star className="size-14 fill-accent text-accent" aria-hidden="true" />
+                  )}
                   {isExpired && (
                     <span className="rounded-full bg-expense-subtle px-6 py-2 text-caption font-medium text-expense">
                       Expired

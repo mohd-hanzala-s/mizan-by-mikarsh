@@ -134,13 +134,17 @@ export function CalendarPage() {
           setVaultLoading(false)
         }
       })(),
-    ]).catch(() =>
-      setLoadError('Failed to load calendar data. Please try again.')
-    )
+    ]).catch(() => setLoadError('Failed to load calendar data. Please try again.'))
   }, [])
 
   const isLoading =
-    txLoading || recLoading || loanLoading || goalsLoading || accountsLoading || settingsLoading || vaultLoading
+    txLoading ||
+    recLoading ||
+    loanLoading ||
+    goalsLoading ||
+    accountsLoading ||
+    settingsLoading ||
+    vaultLoading
 
   const firstDayOfWeek = (settings?.firstDayOfWeek ?? 0) as Day
 
@@ -201,7 +205,18 @@ export function CalendarPage() {
       return CalendarService.getWeekEvents([...monthEvents, ...next], weekStart)
     }
     return CalendarService.getWeekEvents(monthEvents, weekStart)
-  }, [weekStart, anchor, monthEvents, transactions, rules, loans, payments, goals, vaultDocuments, creditCardAccountIds])
+  }, [
+    weekStart,
+    anchor,
+    monthEvents,
+    transactions,
+    rules,
+    loans,
+    payments,
+    goals,
+    vaultDocuments,
+    creditCardAccountIds,
+  ])
 
   const visibleEvents = view === 'week' ? weekEvents : monthEvents
   const filtered = useMemo(
@@ -295,11 +310,11 @@ export function CalendarPage() {
                 try {
                   const docs = await VaultRepository.getAll()
                   setVaultDocuments(docs)
-                } catch (_e) { void _e }
+                } catch (_e) {
+                  void _e
+                }
               })(),
-            ]).catch(() =>
-              setLoadError('Failed to load calendar data. Please try again.')
-            )
+            ]).catch(() => setLoadError('Failed to load calendar data. Please try again.'))
           }}
         />
       </div>
@@ -369,7 +384,9 @@ export function CalendarPage() {
                 )}
                 aria-hidden="true"
               />
-              <span className="text-body-sm text-text-secondary capitalize">{weatherInfo.label}</span>
+              <span className="text-body-sm text-text-secondary capitalize">
+                {weatherInfo.label}
+              </span>
             </div>
             <span className="text-body-lg font-semibold text-income tabular-nums">
               +{cashFlow.income.toLocaleString('en-IN')}
@@ -475,10 +492,14 @@ export function CalendarPage() {
             {(dayCashFlow.income > 0 || dayCashFlow.expense > 0) && (
               <div className="flex items-center gap-8 text-caption tabular-nums">
                 {dayCashFlow.income > 0 && (
-                  <span className="text-income">+₹{dayCashFlow.income.toLocaleString('en-IN')}</span>
+                  <span className="text-income">
+                    +₹{dayCashFlow.income.toLocaleString('en-IN')}
+                  </span>
                 )}
                 {dayCashFlow.expense > 0 && (
-                  <span className="text-expense">−₹{dayCashFlow.expense.toLocaleString('en-IN')}</span>
+                  <span className="text-expense">
+                    −₹{dayCashFlow.expense.toLocaleString('en-IN')}
+                  </span>
                 )}
                 <span
                   className={cn(
@@ -486,7 +507,8 @@ export function CalendarPage() {
                     dayCashFlow.net >= 0 ? 'text-income' : 'text-expense'
                   )}
                 >
-                  {dayCashFlow.net >= 0 ? '+' : '−'}₹{Math.abs(dayCashFlow.net).toLocaleString('en-IN')}
+                  {dayCashFlow.net >= 0 ? '+' : '−'}₹
+                  {Math.abs(dayCashFlow.net).toLocaleString('en-IN')}
                 </span>
               </div>
             )}

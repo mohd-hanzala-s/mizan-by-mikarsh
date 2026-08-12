@@ -85,7 +85,9 @@ export function BillSplitsPage() {
       {totalOutstanding > 0 && (
         <div className="rounded-lg border border-warning/40 bg-warning-subtle p-16">
           <p className="text-caption text-text-tertiary">Total still owed to you</p>
-          <p className="text-h2 font-semibold tabular-nums text-text-primary">{fmt(totalOutstanding)}</p>
+          <p className="text-h2 font-semibold tabular-nums text-text-primary">
+            {fmt(totalOutstanding)}
+          </p>
         </div>
       )}
 

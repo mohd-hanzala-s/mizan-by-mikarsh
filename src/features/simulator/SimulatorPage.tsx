@@ -54,8 +54,21 @@ function NetWorthChart({ years }: { years: YearProjection[] }) {
   const zeroY = height - padding - ((0 - minNW) / range) * (height - padding * 2)
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-192" preserveAspectRatio="none" aria-hidden="true">
-      <line x1={padding} y1={zeroY} x2={width - padding} y2={zeroY} stroke={CHART_ACCENTS.neutral} strokeWidth="0.5" strokeDasharray="3,2" />
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      className="w-full h-192"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <line
+        x1={padding}
+        y1={zeroY}
+        x2={width - padding}
+        y2={zeroY}
+        stroke={CHART_ACCENTS.neutral}
+        strokeWidth="0.5"
+        strokeDasharray="3,2"
+      />
       <polygon
         points={`${padding},${height - padding} ${points.join(' ')} ${width - padding},${height - padding}`}
         fill={CHART_ACCENTS.border}
@@ -123,16 +136,25 @@ export function SimulatorPage() {
     return SimulationService.computeHealthScoreBreakdown(latestYear, inputs)
   }, [latestYear, inputs])
 
-  const setField = useCallback((field: keyof SimulationInputs) => (val: number) => {
-    setInputs((prev) => ({ ...prev, [field]: val }))
-  }, [])
+  const setField = useCallback(
+    (field: keyof SimulationInputs) => (val: number) => {
+      setInputs((prev) => ({ ...prev, [field]: val }))
+    },
+    []
+  )
 
   const resetToDefaults = useCallback(() => {
     setInputs(prefillInputs)
   }, [prefillInputs])
 
-  const healthTone = latestYear.healthScore >= 70 ? 'good' : latestYear.healthScore >= 40 ? 'fair' : 'poor'
-  const toneColor = healthTone === 'good' ? CHART_ACCENTS.income : healthTone === 'fair' ? CHART_ACCENTS.gold : CHART_ACCENTS.expense
+  const healthTone =
+    latestYear.healthScore >= 70 ? 'good' : latestYear.healthScore >= 40 ? 'fair' : 'poor'
+  const toneColor =
+    healthTone === 'good'
+      ? CHART_ACCENTS.income
+      : healthTone === 'fair'
+        ? CHART_ACCENTS.gold
+        : CHART_ACCENTS.expense
 
   const metrics = useMemo(() => {
     const resultMetrics = []
@@ -151,13 +173,19 @@ export function SimulatorPage() {
     resultMetrics.push({
       label: 'Debt-Free',
       value: result.debtFreeYear !== null ? `Year ${result.debtFreeYear}` : 'Never',
-      sublabel: result.debtFreeYear !== null ? `Age ${inputs.currentAge + result.debtFreeYear}` : 'With current inputs',
+      sublabel:
+        result.debtFreeYear !== null
+          ? `Age ${inputs.currentAge + result.debtFreeYear}`
+          : 'With current inputs',
       icon: Calendar,
     })
     resultMetrics.push({
       label: 'Financial Independence',
       value: result.fiYear !== null ? `Year ${result.fiYear}` : 'Not reached',
-      sublabel: result.fiYear !== null ? `Age ${inputs.currentAge + result.fiYear}` : 'Try increasing savings',
+      sublabel:
+        result.fiYear !== null
+          ? `Age ${inputs.currentAge + result.fiYear}`
+          : 'Try increasing savings',
       icon: ShieldCheck,
     })
     return resultMetrics
@@ -169,9 +197,16 @@ export function SimulatorPage() {
         <div className="flex items-center justify-between gap-8">
           <div className="flex flex-col gap-2">
             <h1 className="text-h3 font-heading font-bold text-text-primary">Simulator</h1>
-            <p className="text-caption text-text-tertiary">Adjust parameters to project your financial future</p>
+            <p className="text-caption text-text-tertiary">
+              Adjust parameters to project your financial future
+            </p>
           </div>
-          <Button variant="tertiary" size="sm" onClick={resetToDefaults} aria-label="Reset to defaults">
+          <Button
+            variant="tertiary"
+            size="sm"
+            onClick={resetToDefaults}
+            aria-label="Reset to defaults"
+          >
             <RotateCcw className="size-14" aria-hidden="true" />
           </Button>
         </div>
@@ -358,7 +393,9 @@ export function SimulatorPage() {
           {metrics.map((m) => (
             <div key={m.label} className="card-sm p-14 flex flex-col gap-6">
               <span className="text-caption text-text-tertiary">{m.label}</span>
-              <span className="text-body-lg font-bold text-text-primary tabular-nums">{m.value}</span>
+              <span className="text-body-lg font-bold text-text-primary tabular-nums">
+                {m.value}
+              </span>
               <span className="text-caption text-text-tertiary">{m.sublabel}</span>
             </div>
           ))}
@@ -384,13 +421,18 @@ export function SimulatorPage() {
                   <div className="flex items-center justify-between gap-8 py-6">
                     <div className="flex items-center gap-8 min-w-0">
                       <span className="text-body-sm text-text-secondary truncate">{f.label}</span>
-                      <span className="text-caption text-text-tertiary shrink-0">wt {f.weight}%</span>
+                      <span className="text-caption text-text-tertiary shrink-0">
+                        wt {f.weight}%
+                      </span>
                     </div>
                     <div className="flex items-center gap-8">
                       <div className="h-6 w-80 overflow-hidden rounded-full bg-border-subtle dark:bg-surface-raised">
                         <div
                           className="h-full rounded-full transition-all duration-standard"
-                          style={{ width: `${Math.min(100, f.value)}%`, backgroundColor: CHART_ACCENTS.income }}
+                          style={{
+                            width: `${Math.min(100, f.value)}%`,
+                            backgroundColor: CHART_ACCENTS.income,
+                          }}
                         />
                       </div>
                       <span className="tabular-nums text-body-sm font-semibold text-text-primary w-32 text-right">
@@ -431,7 +473,10 @@ export function SimulatorPage() {
                 </thead>
                 <tbody>
                   {result.years.map((y) => (
-                    <tr key={y.year} className="border-t border-border-subtle text-caption tabular-nums">
+                    <tr
+                      key={y.year}
+                      className="border-t border-border-subtle text-caption tabular-nums"
+                    >
                       <td className="py-6 pr-8 text-text-primary font-medium">{y.year}</td>
                       <td className="py-6 pr-8 text-right text-text-secondary">{y.age}</td>
                       <td className="py-6 pr-8 text-right font-semibold text-text-primary">
@@ -450,10 +495,16 @@ export function SimulatorPage() {
                         {formatAmount(y.income, settings?.currency ?? 'INR')}
                       </td>
                       <td className="py-6 pr-8 text-right text-text-secondary">{y.savingsRate}%</td>
-                      <td className={cn(
-                        'py-6 text-right font-semibold',
-                        y.healthScore >= 70 ? 'text-income' : y.healthScore >= 40 ? 'text-gold-500' : 'text-expense'
-                      )}>
+                      <td
+                        className={cn(
+                          'py-6 text-right font-semibold',
+                          y.healthScore >= 70
+                            ? 'text-income'
+                            : y.healthScore >= 40
+                              ? 'text-gold-500'
+                              : 'text-expense'
+                        )}
+                      >
                         {y.healthScore}
                       </td>
                     </tr>

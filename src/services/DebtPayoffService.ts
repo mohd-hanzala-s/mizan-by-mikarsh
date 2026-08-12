@@ -39,7 +39,10 @@ export interface DebtPayoffResult {
   neverPaysOff: boolean
 }
 
-function priorityOrder(loans: DebtPayoffLoanInput[], strategy: PayoffStrategy): DebtPayoffLoanInput[] {
+function priorityOrder(
+  loans: DebtPayoffLoanInput[],
+  strategy: PayoffStrategy
+): DebtPayoffLoanInput[] {
   const sorted = [...loans]
   if (strategy === 'snowball') {
     sorted.sort((a, b) => a.balance - b.balance)

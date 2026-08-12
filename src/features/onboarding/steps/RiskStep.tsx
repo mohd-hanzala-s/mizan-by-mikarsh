@@ -29,11 +29,7 @@ const RISK_OPTIONS: {
   },
 ]
 
-export function RiskStep({
-  onNext,
-}: {
-  onNext: (data: { riskAppetite: RiskAppetite }) => void
-}) {
+export function RiskStep({ onNext }: { onNext: (data: { riskAppetite: RiskAppetite }) => void }) {
   const identity = useFinancialIdentityStore((s) => s.identity)
   const currentRisk = identity?.riskAppetite ?? 'balanced'
 

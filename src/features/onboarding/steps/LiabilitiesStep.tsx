@@ -62,9 +62,7 @@ export function LiabilitiesStep({
           <CreditCard className="size-32 text-expense" aria-hidden="true" />
         </div>
         <h2 className="text-h1 font-semibold text-text-primary">Your liabilities</h2>
-        <p className="max-w-sm text-body text-text-secondary">
-          What debts do you currently have?
-        </p>
+        <p className="max-w-sm text-body text-text-secondary">What debts do you currently have?</p>
       </div>
 
       <div

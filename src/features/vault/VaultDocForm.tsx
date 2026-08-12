@@ -1,11 +1,27 @@
 import { useEffect, useState, useRef } from 'react'
-import { X, Upload, ReceiptText, FileText, ShieldCheck, Shield, FileSpreadsheet, Car, HeartPulse, Building2, FolderOpen } from 'lucide-react'
+import {
+  X,
+  Upload,
+  ReceiptText,
+  FileText,
+  ShieldCheck,
+  Shield,
+  FileSpreadsheet,
+  Car,
+  HeartPulse,
+  Building2,
+  FolderOpen,
+} from 'lucide-react'
 import { VaultService } from '@/services/VaultService'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utils/cn'
 import type { VaultDocument, VaultDocumentType } from '@/types/entities'
 
-const DOC_TYPES: { value: VaultDocumentType; label: string; icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }> }[] = [
+const DOC_TYPES: {
+  value: VaultDocumentType
+  label: string
+  icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>
+}[] = [
   { value: 'receipt', label: 'Receipt', icon: ReceiptText },
   { value: 'bill', label: 'Bill', icon: FileText },
   { value: 'warranty', label: 'Warranty', icon: ShieldCheck },
@@ -24,7 +40,9 @@ interface VaultDocFormProps {
   editing?: VaultDocument
 }
 
-function readFileAsBase64(file: File): Promise<{ data: string; name: string; type: string; size: number }> {
+function readFileAsBase64(
+  file: File
+): Promise<{ data: string; name: string; type: string; size: number }> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () =>
@@ -188,7 +206,9 @@ export function VaultDocForm({ open, onClose, onSaved, editing }: VaultDocFormPr
           type,
           description,
           tags,
-          documentDate: documentDate ? new Date(documentDate).toISOString() : new Date().toISOString(),
+          documentDate: documentDate
+            ? new Date(documentDate).toISOString()
+            : new Date().toISOString(),
           expiryDate: expiryDate ? new Date(expiryDate).toISOString() : null,
           fileData,
           fileName,
@@ -218,7 +238,9 @@ export function VaultDocForm({ open, onClose, onSaved, editing }: VaultDocFormPr
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-16 flex items-center justify-between">
-          <h2 className="text-h2 text-text-primary">{editing ? 'Edit Document' : 'New Document'}</h2>
+          <h2 className="text-h2 text-text-primary">
+            {editing ? 'Edit Document' : 'New Document'}
+          </h2>
           <button
             onClick={onClose}
             className="flex size-40 items-center justify-center rounded-lg text-text-tertiary hover:bg-border-subtle"
@@ -342,7 +364,9 @@ export function VaultDocForm({ open, onClose, onSaved, editing }: VaultDocFormPr
           </div>
 
           <label className="flex flex-col gap-4">
-            <span className="text-body-sm font-medium text-text-primary">Tags (comma-separated)</span>
+            <span className="text-body-sm font-medium text-text-primary">
+              Tags (comma-separated)
+            </span>
             <input
               type="text"
               value={tagsInput}
@@ -375,7 +399,10 @@ export function VaultDocForm({ open, onClose, onSaved, editing }: VaultDocFormPr
           </label>
 
           {formError && (
-            <p className="rounded-lg bg-expense-subtle px-12 py-8 text-body-sm text-expense" role="alert">
+            <p
+              className="rounded-lg bg-expense-subtle px-12 py-8 text-body-sm text-expense"
+              role="alert"
+            >
               {formError}
             </p>
           )}

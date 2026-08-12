@@ -327,8 +327,12 @@ describe('GoalService', () => {
   })
 
   it('returns category colors by type', () => {
-    expect(GoalService.getColor({ type: 'emergency_fund' } as Parameters<typeof GoalService.getColor>[0])).toBe('#0F4D45')
-    expect(GoalService.getColor({ type: 'wedding' } as Parameters<typeof GoalService.getColor>[0])).toBe('#D9534F')
+    expect(
+      GoalService.getColor({ type: 'emergency_fund' } as Parameters<typeof GoalService.getColor>[0])
+    ).toBe('#0F4D45')
+    expect(
+      GoalService.getColor({ type: 'wedding' } as Parameters<typeof GoalService.getColor>[0])
+    ).toBe('#D9534F')
   })
 
   it('returns category labels', () => {

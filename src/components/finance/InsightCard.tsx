@@ -41,10 +41,7 @@ export function InsightCard({ recommendation, onFeedback }: InsightCardProps) {
 
   return (
     <div
-      className={cn(
-        'card flex flex-col gap-14 p-16 transition-all duration-fast',
-        style.border
-      )}
+      className={cn('card flex flex-col gap-14 p-16 transition-all duration-fast', style.border)}
     >
       <div className="flex items-center justify-between gap-12">
         <h3 className="font-heading text-body-lg font-bold text-text-primary">

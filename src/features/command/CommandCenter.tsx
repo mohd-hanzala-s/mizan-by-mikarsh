@@ -27,7 +27,16 @@ import { GoalService } from '@/services/GoalService'
 import { computeBudgetStatus } from '@/services/BudgetService'
 import { InsightService } from '@/services/InsightService'
 import { cn } from '@/utils/cn'
-import type { Account, Budget, Category, Transaction, RecurringRule, Loan, LoanPayment, Goal } from '@/types/entities'
+import type {
+  Account,
+  Budget,
+  Category,
+  Transaction,
+  RecurringRule,
+  Loan,
+  LoanPayment,
+  Goal,
+} from '@/types/entities'
 
 function fmt(n: number): string {
   return `₹${Math.round(n).toLocaleString('en-IN')}`
@@ -36,15 +45,47 @@ function fmt(n: number): string {
 type CommandResult =
   | { type: 'empty'; query: string }
   | { type: 'error'; message: string }
-  | { type: 'biggest_expenses'; transactions: Array<{ description: string; amount: number; categoryName: string }> }
-  | { type: 'affordability'; item: string; amount: number; canAfford: boolean; maybe: boolean; reasoning: string }
-  | { type: 'net_worth_prediction'; years: number; finalNetWorth: number; debtFreeYear: number | null; fiYear: number | null }
-  | { type: 'monthly_savings'; recommendedAmount: number; monthlyIncome: number; monthlyExpenses: number }
+  | {
+      type: 'biggest_expenses'
+      transactions: Array<{ description: string; amount: number; categoryName: string }>
+    }
+  | {
+      type: 'affordability'
+      item: string
+      amount: number
+      canAfford: boolean
+      maybe: boolean
+      reasoning: string
+    }
+  | {
+      type: 'net_worth_prediction'
+      years: number
+      finalNetWorth: number
+      debtFreeYear: number | null
+      fiYear: number | null
+    }
+  | {
+      type: 'monthly_savings'
+      recommendedAmount: number
+      monthlyIncome: number
+      monthlyExpenses: number
+    }
   | { type: 'duplicate_subs'; rules: RecurringRule[] }
-  | { type: 'monthly_spending'; total: number; categoryBreakdown: Array<{ name: string; amount: number; percent: number }> }
-  | { type: 'budget_status'; statuses: Array<{ name: string; percentUsed: number; severity: string; remaining: number }> }
+  | {
+      type: 'monthly_spending'
+      total: number
+      categoryBreakdown: Array<{ name: string; amount: number; percent: number }>
+    }
+  | {
+      type: 'budget_status'
+      statuses: Array<{ name: string; percentUsed: number; severity: string; remaining: number }>
+    }
   | { type: 'closest_goal'; goal: Goal; progress: ReturnType<typeof GoalService.computeProgress> }
-  | { type: 'total_debt'; totalOutstanding: number; loans: Array<{ name: string; balance: number; emi: number }> }
+  | {
+      type: 'total_debt'
+      totalOutstanding: number
+      loans: Array<{ name: string; balance: number; emi: number }>
+    }
   | { type: 'retirement_check'; healthScore: number; projectedNW: number; message: string }
   | { type: 'not_understood'; query: string }
 
@@ -58,16 +99,16 @@ interface ResultCard {
 }
 
 const SUGGESTIONS = [
-  "Show my biggest expenses",
+  'Show my biggest expenses',
   "What's my spending this month?",
-  "How much should I save monthly?",
-  "How much debt do I have?",
-  "How am I doing on budgets?",
-  "Which goal is closest?",
-  "Find duplicate subscriptions",
-  "Predict my net worth in 5 years",
-  "Can I afford a 50000 vacation?",
-  "Am I on track for retirement?",
+  'How much should I save monthly?',
+  'How much debt do I have?',
+  'How am I doing on budgets?',
+  'Which goal is closest?',
+  'Find duplicate subscriptions',
+  'Predict my net worth in 5 years',
+  'Can I afford a 50000 vacation?',
+  'Am I on track for retirement?',
 ]
 
 function monthTransactions(
@@ -78,10 +119,7 @@ function monthTransactions(
   const start = new Date(reference.getFullYear(), reference.getMonth() - offset, 1)
   const end = new Date(reference.getFullYear(), reference.getMonth() - offset + 1, 1)
   return transactions.filter(
-    (t) =>
-      !t.isDeleted &&
-      new Date(t.transactionDate) >= start &&
-      new Date(t.transactionDate) < end
+    (t) => !t.isDeleted && new Date(t.transactionDate) >= start && new Date(t.transactionDate) < end
   )
 }
 
@@ -114,9 +152,16 @@ function executeCommand(
   const q = query.trim().toLowerCase()
   const reference = new Date()
 
-  if (q.includes('biggest expense') || q.includes('largest expense') || q.includes('top expense') || q.includes('most expense')) {
+  if (
+    q.includes('biggest expense') ||
+    q.includes('largest expense') ||
+    q.includes('top expense') ||
+    q.includes('most expense')
+  ) {
     const currentMonth = monthTransactions(transactions, 0, reference)
-    const expenses = filterExpense(currentMonth).sort((a, b) => b.amount - a.amount).slice(0, 5)
+    const expenses = filterExpense(currentMonth)
+      .sort((a, b) => b.amount - a.amount)
+      .slice(0, 5)
     if (expenses.length === 0) return { type: 'error', message: 'No expenses found this month.' }
     const catById = new Map(categories.map((c) => [c.id, c]))
     return {
@@ -179,12 +224,25 @@ function executeCommand(
     }
   }
 
-  if (q.includes('save monthly') || q.includes('how much should i save') || q.includes('how much to save')) {
+  if (
+    q.includes('save monthly') ||
+    q.includes('how much should i save') ||
+    q.includes('how much to save')
+  ) {
     const currentMonth = monthTransactions(transactions, 0, reference)
-    const monthIncome = currentMonth.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0)
-    const monthExpense = currentMonth.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0)
+    const monthIncome = currentMonth
+      .filter((t) => t.type === 'income')
+      .reduce((s, t) => s + t.amount, 0)
+    const monthExpense = currentMonth
+      .filter((t) => t.type === 'expense')
+      .reduce((s, t) => s + t.amount, 0)
 
-    if (monthIncome <= 0) return { type: 'error', message: 'No income data available. Add income transactions to get a savings recommendation.' }
+    if (monthIncome <= 0)
+      return {
+        type: 'error',
+        message:
+          'No income data available. Add income transactions to get a savings recommendation.',
+      }
 
     const twentySave = monthIncome * 0.2
 
@@ -215,7 +273,12 @@ function executeCommand(
     return { type: 'duplicate_subs', rules: dups }
   }
 
-  if (q.includes('spending this month') || q.includes('this month spending') || q.includes('monthly spend') || q.includes('my spending')) {
+  if (
+    q.includes('spending this month') ||
+    q.includes('this month spending') ||
+    q.includes('monthly spend') ||
+    q.includes('my spending')
+  ) {
     const currentMonth = monthTransactions(transactions, 0, reference)
     const total = filterExpense(currentMonth).reduce((s, t) => s + t.amount, 0)
     const catSums = categorySums(currentMonth, categories)
@@ -237,7 +300,8 @@ function executeCommand(
       .map((b) => {
         const s = computeBudgetStatus(b, transactions, budgetMonthStart, reference)
         const catById = new Map(categories.map((c) => [c.id, c]))
-        const name = b.categoryId === 'global' ? 'Overall' : (catById.get(b.categoryId)?.name ?? 'Budget')
+        const name =
+          b.categoryId === 'global' ? 'Overall' : (catById.get(b.categoryId)?.name ?? 'Budget')
         return { name, percentUsed: s.percentUsed, severity: s.severity, remaining: s.remaining }
       })
       .sort((a, b) => b.percentUsed - a.percentUsed)
@@ -247,7 +311,11 @@ function executeCommand(
 
   if (q.includes('closest goal') || q.includes('which goal') || q.includes('nearest goal')) {
     const activeGoals = goals.filter((g) => g.status === 'active')
-    if (activeGoals.length === 0) return { type: 'error', message: 'No active goals found. Create a goal in the Goals section.' }
+    if (activeGoals.length === 0)
+      return {
+        type: 'error',
+        message: 'No active goals found. Create a goal in the Goals section.',
+      }
 
     const withProgress = activeGoals
       .map((g) => ({ goal: g, progress: GoalService.computeProgress(g) }))
@@ -262,7 +330,8 @@ function executeCommand(
 
   if (q.includes('debt') || q.includes('loan') || q.includes('emi')) {
     const analysis = getLoanAnalysis(loans)
-    if (analysis.totalOutstanding === 0) return { type: 'error', message: 'You have no outstanding debt. Well done!' }
+    if (analysis.totalOutstanding === 0)
+      return { type: 'error', message: 'You have no outstanding debt. Well done!' }
 
     return {
       type: 'total_debt',
@@ -275,7 +344,14 @@ function executeCommand(
 
   if (q.includes('retirement') || q.includes('retire') || q.includes('on track')) {
     const health = InsightService.computeHealthScore(
-      transactions, accounts, budgets, loans, payments, rules, budgetMonthStart, reference
+      transactions,
+      accounts,
+      budgets,
+      loans,
+      payments,
+      rules,
+      budgetMonthStart,
+      reference
     )
 
     const simInputs = getDefaultInputs({
@@ -308,9 +384,7 @@ function executeCommand(
   return { type: 'empty', query: '' }
 }
 
-function resultToCard(
-  result: CommandResult
-): ResultCard | null {
+function resultToCard(result: CommandResult): ResultCard | null {
   switch (result.type) {
     case 'biggest_expenses':
       return {
@@ -411,10 +485,9 @@ function resultToCard(
         icon: Target,
         title: `${result.goal.name} is closest (${result.progress.percentage}%)`,
         subtitle: `Remaining: ${fmt(result.progress.remaining)} of ${fmt(result.goal.targetAmount)} — ${result.progress.probability === 'on_track' ? 'On track' : result.progress.probability === 'at_risk' ? 'At risk' : 'Off track'}`,
-        detail:
-          result.goal.deadline
-            ? `Deadline: ${new Date(result.goal.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`
-            : undefined,
+        detail: result.goal.deadline
+          ? `Deadline: ${new Date(result.goal.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`
+          : undefined,
         action: { label: 'View goal', path: `/goals/${result.goal.id}` },
         color: '#62C3A7',
       }
@@ -436,13 +509,15 @@ function resultToCard(
         subtitle: result.message,
         detail: `Projected net worth in 25 years: ${fmt(result.projectedNW)}`,
         action: { label: 'Open simulator', path: '/simulator' },
-        color: result.healthScore >= 70 ? '#62C3A7' : result.healthScore >= 40 ? '#D9A441' : '#D9534F',
+        color:
+          result.healthScore >= 70 ? '#62C3A7' : result.healthScore >= 40 ? '#D9A441' : '#D9534F',
       }
     case 'not_understood':
       return {
         icon: Search,
         title: `I didn't understand "${result.query}"`,
-        subtitle: 'Try asking about expenses, savings, budgets, debt, goals, or your net worth. Tap a suggestion below for ideas.',
+        subtitle:
+          'Try asking about expenses, savings, budgets, debt, goals, or your net worth. Tap a suggestion below for ideas.',
         color: '#A4B2AD',
       }
     default:
@@ -597,9 +672,7 @@ export function CommandCenter() {
               <p className="text-body-sm text-text-secondary whitespace-pre-line leading-relaxed">
                 {card.subtitle}
               </p>
-              {card.detail && (
-                <p className="text-caption text-text-tertiary mt-2">{card.detail}</p>
-              )}
+              {card.detail && <p className="text-caption text-text-tertiary mt-2">{card.detail}</p>}
             </div>
           </div>
           {card.action && (

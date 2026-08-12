@@ -81,22 +81,30 @@ export function WealthHubPage() {
   const netWorth = useMemo(() => {
     const activeAccounts = accounts.filter((a) => !a.isArchived)
     const assetTotal = activeAccounts.reduce((s, a) => s + Math.max(0, a.currentBalance), 0)
-    const loanTotal = loans.filter((l) => l.status === 'active').reduce((s, l) => s + l.currentBalance, 0)
+    const loanTotal = loans
+      .filter((l) => l.status === 'active')
+      .reduce((s, l) => s + l.currentBalance, 0)
     const nw = assetTotal - loanTotal
     return { nw, currency: activeAccounts[0]?.currency ?? 'INR' }
   }, [accounts, loans])
 
   const healthScore = useMemo(
-    () => computeHealthScore(transactions, accounts, budgets, loans, loanPayments, recurringRules, budgetMonthStart),
+    () =>
+      computeHealthScore(
+        transactions,
+        accounts,
+        budgets,
+        loans,
+        loanPayments,
+        recurringRules,
+        budgetMonthStart
+      ),
     [transactions, accounts, budgets, loans, loanPayments, recurringRules, budgetMonthStart]
   )
 
   const healthTone = scoreTone(healthScore.score)
 
-  const activeGoals = useMemo(
-    () => goals.filter((g) => g.status === 'active'),
-    [goals]
-  )
+  const activeGoals = useMemo(() => goals.filter((g) => g.status === 'active'), [goals])
 
   const activeInvestments = useMemo(
     () => investments.filter((i) => i.status !== 'sold'),
@@ -134,7 +142,9 @@ export function WealthHubPage() {
       <section className="card-hero p-20 md:p-28">
         <div className="flex flex-col gap-20 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col gap-8">
-            <p className="text-caption font-medium text-brand-teal200 uppercase tracking-wider">Net Worth</p>
+            <p className="text-caption font-medium text-brand-teal200 uppercase tracking-wider">
+              Net Worth
+            </p>
             <p className="text-display font-bold text-white tabular-nums tracking-tight">
               {netWorth.nw < 0 ? '\u2212' : ''}
               {formatAmount(Math.abs(netWorth.nw), netWorth.currency)}
@@ -173,7 +183,9 @@ export function WealthHubPage() {
         }
       >
         {activeGoals.length === 0 ? (
-          <p className="text-body-sm text-text-secondary py-8">Set a savings or purchase goal to track your progress.</p>
+          <p className="text-body-sm text-text-secondary py-8">
+            Set a savings or purchase goal to track your progress.
+          </p>
         ) : (
           <div className="flex flex-col gap-8">
             {activeGoals.slice(0, 3).map((goal) => (
@@ -199,7 +211,9 @@ export function WealthHubPage() {
         }
       >
         {investments.length === 0 ? (
-          <p className="text-body-sm text-text-secondary py-8">Add investments to track your portfolio.</p>
+          <p className="text-body-sm text-text-secondary py-8">
+            Add investments to track your portfolio.
+          </p>
         ) : (
           <div className="flex flex-col gap-8">
             <div className="flex items-center justify-between py-8 border-b border-border">
@@ -223,8 +237,14 @@ export function WealthHubPage() {
                     <p className="tabular-nums text-body font-bold text-text-primary">
                       {formatAmount(currentValue, settings.currency)}
                     </p>
-                    <p className={cn('text-caption tabular-nums font-medium', gain >= 0 ? 'text-income' : 'text-expense')}>
-                      {gain >= 0 ? '+' : ''}{gainPct.toFixed(1)}%
+                    <p
+                      className={cn(
+                        'text-caption tabular-nums font-medium',
+                        gain >= 0 ? 'text-income' : 'text-expense'
+                      )}
+                    >
+                      {gain >= 0 ? '+' : ''}
+                      {gainPct.toFixed(1)}%
                     </p>
                   </div>
                 </div>

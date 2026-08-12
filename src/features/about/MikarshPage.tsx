@@ -15,27 +15,32 @@ const PRINCIPLES: Principle[] = [
   {
     icon: Gem,
     label: 'Beautiful Craftsmanship',
-    description: 'Every surface, every interaction, every detail is considered. We believe great tools should also be beautiful objects.',
+    description:
+      'Every surface, every interaction, every detail is considered. We believe great tools should also be beautiful objects.',
   },
   {
     icon: Lock,
     label: 'Privacy by Design',
-    description: 'Privacy is not a checkbox — it is the foundation. We build from the assumption that your data belongs to you alone.',
+    description:
+      'Privacy is not a checkbox — it is the foundation. We build from the assumption that your data belongs to you alone.',
   },
   {
     icon: Users,
     label: 'Human-Centered Experiences',
-    description: 'Technology serves people, not the other way around. We design for how humans actually think, feel, and behave.',
+    description:
+      'Technology serves people, not the other way around. We design for how humans actually think, feel, and behave.',
   },
   {
     icon: Layout,
     label: 'Simplicity over Complexity',
-    description: 'The hardest thing a product can do is let go of unnecessary features. We choose restraint every time.',
+    description:
+      'The hardest thing a product can do is let go of unnecessary features. We choose restraint every time.',
   },
   {
     icon: ShieldCheck,
     label: 'Long-Term Reliability',
-    description: 'We build software that lasts. Our products are designed to be dependable companions for years, not disposable experiments.',
+    description:
+      'We build software that lasts. Our products are designed to be dependable companions for years, not disposable experiments.',
   },
 ]
 
@@ -50,19 +55,22 @@ const PRODUCTS: Product[] = [
   {
     name: 'Mizan',
     domain: 'Finance',
-    description: 'Your personal finance companion. Track expenses, manage budgets, scan receipts, and find the balance that works for you — all with total privacy.',
+    description:
+      'Your personal finance companion. Track expenses, manage budgets, scan receipts, and find the balance that works for you — all with total privacy.',
     color: 'bg-brand-teal900',
   },
   {
     name: 'Naven',
     domain: 'Productivity',
-    description: 'Coming soon. A fresh approach to getting things done — designed for deep work, intentional planning, and sustainable momentum.',
+    description:
+      'Coming soon. A fresh approach to getting things done — designed for deep work, intentional planning, and sustainable momentum.',
     color: 'bg-accent',
   },
   {
     name: 'Louvina',
     domain: 'Lifestyle',
-    description: 'Coming soon. Daily tools for a well-lived life — from habit tracking to mindful routines, crafted with the same care as everything we make.',
+    description:
+      'Coming soon. Daily tools for a well-lived life — from habit tracking to mindful routines, crafted with the same care as everything we make.',
     color: 'bg-brand-teal900/70',
   },
 ]
@@ -74,7 +82,7 @@ export function MikarshPage({ onBack }: MikarshPageProps) {
       <div className="px-20 pb-16 pt-32 md:px-32">
         <button
           type="button"
-          onClick={() => onBack ? onBack() : navigate('/about')}
+          onClick={() => (onBack ? onBack() : navigate('/about'))}
           className="mb-20 flex size-40 items-center justify-center rounded-xl text-text-secondary hover:text-text-primary hover:shadow-glass-sm transition-all duration-fast"
           aria-label="Back to About"
         >
@@ -89,11 +97,10 @@ export function MikarshPage({ onBack }: MikarshPageProps) {
       <div className="flex flex-col gap-20 px-20 pb-32 md:px-32">
         <section className="card rounded-2xl p-20 md:p-28">
           <p className="text-body-lg leading-relaxed text-text-secondary">
-            M I K A R S H is a small, independent software studio dedicated to
-            crafting tools that feel effortless, look beautiful, and respect the
-            people who use them. We are not backed by venture capital. We are not
-            chasing growth at any cost. We are guided by a single question: how
-            can this be better for the person using it?
+            M I K A R S H is a small, independent software studio dedicated to crafting tools that
+            feel effortless, look beautiful, and respect the people who use them. We are not backed
+            by venture capital. We are not chasing growth at any cost. We are guided by a single
+            question: how can this be better for the person using it?
           </p>
         </section>
 

@@ -23,10 +23,7 @@ export function NavigationRail() {
       aria-label="Main navigation"
       className="card-nav hidden w-[80px] flex-col items-center gap-4 py-20 md:flex lg:w-[232px] lg:items-stretch lg:px-12 z-30"
     >
-      <NavLink
-        to="/"
-        className="mb-16 flex items-center gap-10 px-8"
-      >
+      <NavLink to="/" className="mb-16 flex items-center gap-10 px-8">
         <div className="card-sm flex size-36 shrink-0 items-center justify-center">
           <Scale className="size-18 text-brand-teal900" aria-hidden="true" />
         </div>
@@ -107,9 +104,7 @@ export function NavigationRail() {
       </div>
 
       <div className="hidden border-t border-border/30 pt-12 lg:block">
-        <p className="px-10 text-[10px] font-medium text-text-tertiary">
-          v2.0
-        </p>
+        <p className="px-10 text-[10px] font-medium text-text-tertiary">v2.0</p>
       </div>
     </nav>
   )

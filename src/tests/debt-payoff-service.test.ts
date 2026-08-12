@@ -44,8 +44,20 @@ describe('DebtPayoffService', () => {
 
   describe('simulate — avalanche prioritizes rate over balance', () => {
     const loans: DebtPayoffLoanInput[] = [
-      { id: 'small-low-rate', name: 'Small, low rate', balance: 500, interestRate: 5, minPayment: 50 },
-      { id: 'big-high-rate', name: 'Big, high rate', balance: 5000, interestRate: 24, minPayment: 100 },
+      {
+        id: 'small-low-rate',
+        name: 'Small, low rate',
+        balance: 500,
+        interestRate: 5,
+        minPayment: 50,
+      },
+      {
+        id: 'big-high-rate',
+        name: 'Big, high rate',
+        balance: 5000,
+        interestRate: 24,
+        minPayment: 100,
+      },
     ]
 
     it('orders by highest interest rate first, regardless of balance', () => {

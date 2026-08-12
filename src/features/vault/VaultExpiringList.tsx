@@ -23,7 +23,11 @@ import type { VaultDocument, VaultDocumentType } from '@/types/entities'
 
 const DOC_TYPE_META: Record<
   VaultDocumentType,
-  { label: string; icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>; color: string }
+  {
+    label: string
+    icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>
+    color: string
+  }
 > = {
   receipt: { label: 'Receipt', icon: ReceiptText, color: 'text-income' },
   bill: { label: 'Bill', icon: FileText, color: 'text-expense' },
@@ -39,7 +43,11 @@ const DOC_TYPE_META: Record<
 type Tab = 'expiring' | 'expired'
 
 function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+  return new Date(iso).toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
 }
 
 function daysUntil(dateStr: string): number {

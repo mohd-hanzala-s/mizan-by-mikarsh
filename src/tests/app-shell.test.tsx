@@ -14,9 +14,12 @@ describe('App post-onboarding', () => {
   it('renders the app shell with the 5 primary navigation tabs', async () => {
     render(<App />)
 
-    await waitFor(() => {
-      expect(screen.getByText('No activity yet')).toBeInTheDocument()
-    }, { timeout: 5000 })
+    await waitFor(
+      () => {
+        expect(screen.getByText('No activity yet')).toBeInTheDocument()
+      },
+      { timeout: 5000 }
+    )
 
     const labels = ['Home', 'Money', 'Wealth', 'Planner', 'More']
     labels.forEach((label) => {

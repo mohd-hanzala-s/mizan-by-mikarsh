@@ -13,9 +13,7 @@ export function AlertCard({ alert }: AlertCardProps) {
     <div
       className={cn(
         'card-sm flex items-start gap-10 p-12 text-body-sm font-medium',
-        alert.severity === 'warning'
-          ? 'bg-gold-500/10'
-          : 'bg-brand-teal400/10'
+        alert.severity === 'warning' ? 'bg-gold-500/10' : 'bg-brand-teal400/10'
       )}
     >
       <Icon

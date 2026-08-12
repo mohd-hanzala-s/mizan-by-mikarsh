@@ -3,7 +3,14 @@ import { localDateKey, startOfStoredDate } from '@/utils/dates'
 import { isTransferCreditLeg } from '@/utils/transactions'
 import { addOccurrence, computeNextExecution } from '@/services/RecurringService'
 import { nextDueDate } from '@/services/LoanService'
-import type { Loan, LoanPayment, RecurringRule, Transaction, Goal, VaultDocument } from '@/types/entities'
+import type {
+  Loan,
+  LoanPayment,
+  RecurringRule,
+  Transaction,
+  Goal,
+  VaultDocument,
+} from '@/types/entities'
 
 export type CalendarEventKind =
   | 'transaction'

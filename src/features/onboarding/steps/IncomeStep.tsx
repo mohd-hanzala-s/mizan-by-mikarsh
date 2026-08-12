@@ -14,7 +14,11 @@ const FREQ_OPTIONS: { value: IncomeFrequency; label: string }[] = [
 export function IncomeStep({
   onNext,
 }: {
-  onNext: (data: { monthlyIncome: number; incomeFrequency: IncomeFrequency; salaryDay: number }) => void
+  onNext: (data: {
+    monthlyIncome: number
+    incomeFrequency: IncomeFrequency
+    salaryDay: number
+  }) => void
 }) {
   const identity = useFinancialIdentityStore((s) => s.identity)
   const [income, setIncome] = useState(

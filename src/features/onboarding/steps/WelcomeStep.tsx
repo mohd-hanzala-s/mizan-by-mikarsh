@@ -1,14 +1,7 @@
 import { useFinancialIdentityStore } from '@/features/profile/financialIdentityStore'
 import type { ProfileType } from '@/types/entities'
 import { cn } from '@/utils/cn'
-import {
-  GraduationCap,
-  Briefcase,
-  Building2,
-  PenTool,
-  Users,
-  Umbrella,
-} from 'lucide-react'
+import { GraduationCap, Briefcase, Building2, PenTool, Users, Umbrella } from 'lucide-react'
 
 const PROFILE_OPTIONS: {
   value: ProfileType
@@ -54,11 +47,7 @@ const PROFILE_OPTIONS: {
   },
 ]
 
-export function WelcomeStep({
-  onNext,
-}: {
-  onNext: (data: { profileType: ProfileType }) => void
-}) {
+export function WelcomeStep({ onNext }: { onNext: (data: { profileType: ProfileType }) => void }) {
   const identity = useFinancialIdentityStore((s) => s.identity)
   const currentType = identity?.profileType ?? 'employee'
 

@@ -17,11 +17,7 @@ export interface AssetEntry {
   value: number
 }
 
-export function AssetsStep({
-  onNext,
-}: {
-  onNext: (data: { assets: AssetEntry[] }) => void
-}) {
+export function AssetsStep({ onNext }: { onNext: (data: { assets: AssetEntry[] }) => void }) {
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [amounts, setAmounts] = useState<Record<string, string>>({})
 
@@ -121,9 +117,7 @@ export function AssetsStep({
                     type="number"
                     inputMode="numeric"
                     value={amounts[key] ?? ''}
-                    onChange={(e) =>
-                      setAmounts((prev) => ({ ...prev, [key]: e.target.value }))
-                    }
+                    onChange={(e) => setAmounts((prev) => ({ ...prev, [key]: e.target.value }))}
                     placeholder="Approximate value"
                     className="flex-1 bg-transparent text-right text-body-sm tabular-nums text-text-primary placeholder:text-text-tertiary focus:outline-none"
                   />

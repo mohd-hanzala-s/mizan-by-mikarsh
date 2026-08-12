@@ -10,16 +10,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary:
-          'bg-brand-teal900 text-white shadow-glass-sm hover:shadow-glass-pressed',
+        primary: 'bg-brand-teal900 text-white shadow-glass-sm hover:shadow-glass-pressed',
         secondary:
           'bg-surface text-text-primary shadow-glass-sm hover:shadow-glass-pressed border border-border/30',
-        tertiary:
-          'bg-transparent text-text-primary hover:shadow-glass-sm hover:bg-surface/60',
-        destructive:
-          'bg-expense text-white shadow-glass-sm hover:shadow-glass-pressed',
-        accent:
-          'bg-accent text-white shadow-glass-sm hover:shadow-glass-pressed',
+        tertiary: 'bg-transparent text-text-primary hover:shadow-glass-sm hover:bg-surface/60',
+        destructive: 'bg-expense text-white shadow-glass-sm hover:shadow-glass-pressed',
+        accent: 'bg-accent text-white shadow-glass-sm hover:shadow-glass-pressed',
         icon: 'bg-transparent text-text-secondary hover:shadow-glass-sm hover:text-text-primary',
       },
       size: {
@@ -37,8 +33,7 @@ const buttonVariants = cva(
 )
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   loading?: boolean
 }
 

@@ -1,12 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  Receipt,
-  TrendingUp,
-  TrendingDown,
-  Plus,
-  ArrowRight,
-} from 'lucide-react'
+import { Receipt, TrendingUp, TrendingDown, Plus, ArrowRight } from 'lucide-react'
 import { useTransactionsStore } from '@/features/transactions/transactionsStore'
 import { useAccountsStore } from '@/features/accounts/accountsStore'
 import { useBudgetsStore } from '@/features/budgets/budgetsStore'
@@ -74,10 +68,7 @@ export function MoneyHubPage() {
     () => budgets.map((b) => computeBudgetStatus(b, transactions, budgetMonthStart)),
     [budgets, transactions, budgetMonthStart]
   )
-  const obligations = useMemo(
-    () => getUpcomingObligations(recurringRules, 30),
-    [recurringRules]
-  )
+  const obligations = useMemo(() => getUpcomingObligations(recurringRules, 30), [recurringRules])
   const incomeExpenseScale = Math.max(metrics.monthIncome, metrics.monthExpense, 1)
 
   if (txIsLoading || acctIsLoading || !settings) {
@@ -122,7 +113,9 @@ export function MoneyHubPage() {
             <div className="flex-1 h-24 overflow-hidden rounded-full bg-border-subtle dark:bg-surface-raised">
               <div
                 className="h-full rounded-full bg-income transition-all duration-slow"
-                style={{ width: `${Math.max((metrics.monthIncome / incomeExpenseScale) * 100, 4)}%` }}
+                style={{
+                  width: `${Math.max((metrics.monthIncome / incomeExpenseScale) * 100, 4)}%`,
+                }}
               />
             </div>
             <span className="w-[120px] shrink-0 text-right tabular-nums text-body font-semibold text-income">
@@ -137,7 +130,9 @@ export function MoneyHubPage() {
             <div className="flex-1 h-24 overflow-hidden rounded-full bg-border-subtle dark:bg-surface-raised">
               <div
                 className="h-full rounded-full bg-expense transition-all duration-slow"
-                style={{ width: `${Math.max((metrics.monthExpense / incomeExpenseScale) * 100, 4)}%` }}
+                style={{
+                  width: `${Math.max((metrics.monthExpense / incomeExpenseScale) * 100, 4)}%`,
+                }}
               />
             </div>
             <span className="w-[120px] shrink-0 text-right tabular-nums text-body font-semibold text-expense">
@@ -146,7 +141,9 @@ export function MoneyHubPage() {
           </div>
           <div className="flex items-center justify-between mt-8 border-t border-border pt-12">
             <span className="text-body-sm font-medium text-text-secondary">Net Savings</span>
-            <span className={`tabular-nums text-body font-bold ${metrics.netSavings >= 0 ? 'text-income' : 'text-expense'}`}>
+            <span
+              className={`tabular-nums text-body font-bold ${metrics.netSavings >= 0 ? 'text-income' : 'text-expense'}`}
+            >
               {metrics.netSavings >= 0 ? '+' : '\u2212'}
               {formatAmount(Math.abs(metrics.netSavings), 'INR')}
             </span>
@@ -187,7 +184,9 @@ export function MoneyHubPage() {
         }
       >
         {accounts.length === 0 ? (
-          <p className="text-body-sm text-text-secondary py-8">Add an account to see balances here.</p>
+          <p className="text-body-sm text-text-secondary py-8">
+            Add an account to see balances here.
+          </p>
         ) : (
           <div className="flex flex-col gap-6">
             {accounts.slice(0, 4).map((a) => (
@@ -208,7 +207,9 @@ export function MoneyHubPage() {
         }
       >
         {budgetStatuses.length === 0 ? (
-          <p className="text-body-sm text-text-secondary py-8">Set up a budget to track spending limits.</p>
+          <p className="text-body-sm text-text-secondary py-8">
+            Set up a budget to track spending limits.
+          </p>
         ) : (
           <div className="flex flex-col gap-8">
             {budgetStatuses.slice(0, 3).map((status) => (
@@ -233,16 +234,23 @@ export function MoneyHubPage() {
         }
       >
         {obligations.length === 0 ? (
-          <p className="text-body-sm text-text-secondary py-8">No payments due in the next 30 days.</p>
+          <p className="text-body-sm text-text-secondary py-8">
+            No payments due in the next 30 days.
+          </p>
         ) : (
           <div className="flex flex-col divide-y divide-border-subtle overflow-hidden rounded-lg border border-border">
             {obligations.slice(0, 5).map((o) => (
               <div key={o.ruleId} className="flex items-center justify-between gap-8 px-16 py-14">
                 <div className="min-w-0">
                   <p className="truncate text-body font-semibold text-text-primary">{o.title}</p>
-                  <p className="text-caption text-text-tertiary mt-1">{o.type === 'income' ? 'Incoming' : 'Due'} {o.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</p>
+                  <p className="text-caption text-text-tertiary mt-1">
+                    {o.type === 'income' ? 'Incoming' : 'Due'}{' '}
+                    {o.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                  </p>
                 </div>
-                <span className={`shrink-0 tabular-nums text-body font-bold ${o.type === 'income' ? 'text-income' : 'text-expense'}`}>
+                <span
+                  className={`shrink-0 tabular-nums text-body font-bold ${o.type === 'income' ? 'text-income' : 'text-expense'}`}
+                >
                   {o.type === 'income' ? '+' : '\u2212'}\u20B9{o.amount.toLocaleString('en-IN')}
                 </span>
               </div>
@@ -261,23 +269,30 @@ export function MoneyHubPage() {
           }
         >
           <div className="flex flex-col divide-y divide-border-subtle overflow-hidden rounded-lg border border-border">
-            {loans.filter((l) => l.status === 'active').slice(0, 5).map((loan) => (
-              <button
-                key={loan.id}
-                onClick={() => navigate('/loans')}
-                className="flex items-center justify-between gap-8 px-16 py-14 text-left hover:bg-surface transition-colors"
-              >
-                <div className="min-w-0">
-                  <p className="truncate text-body font-semibold text-text-primary">{loan.loanName}</p>
-                  <p className="text-caption text-text-tertiary mt-1">
-                    {loan.status === 'completed' ? 'Paid off' : `${loan.monthlyEMI.toLocaleString('en-IN')} EMI/mo`}
-                  </p>
-                </div>
-                <span className="shrink-0 tabular-nums text-body font-bold text-liability">
-                  {formatAmount(loan.currentBalance)}
-                </span>
-              </button>
-            ))}
+            {loans
+              .filter((l) => l.status === 'active')
+              .slice(0, 5)
+              .map((loan) => (
+                <button
+                  key={loan.id}
+                  onClick={() => navigate('/loans')}
+                  className="flex items-center justify-between gap-8 px-16 py-14 text-left hover:bg-surface transition-colors"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-body font-semibold text-text-primary">
+                      {loan.loanName}
+                    </p>
+                    <p className="text-caption text-text-tertiary mt-1">
+                      {loan.status === 'completed'
+                        ? 'Paid off'
+                        : `${loan.monthlyEMI.toLocaleString('en-IN')} EMI/mo`}
+                    </p>
+                  </div>
+                  <span className="shrink-0 tabular-nums text-body font-bold text-liability">
+                    {formatAmount(loan.currentBalance)}
+                  </span>
+                </button>
+              ))}
           </div>
         </DashboardCard>
       )}
@@ -295,8 +310,12 @@ export function MoneyHubPage() {
             {splits.slice(0, 5).map((split) => (
               <div key={split.id} className="flex items-center justify-between gap-8 px-16 py-14">
                 <div className="min-w-0">
-                  <p className="truncate text-body font-semibold text-text-primary">{split.description}</p>
-                  <p className="text-caption text-text-tertiary mt-1">{split.participants.length} participants</p>
+                  <p className="truncate text-body font-semibold text-text-primary">
+                    {split.description}
+                  </p>
+                  <p className="text-caption text-text-tertiary mt-1">
+                    {split.participants.length} participants
+                  </p>
                 </div>
                 <span className="shrink-0 tabular-nums text-body font-bold text-text-primary">
                   {formatAmount(split.totalAmount)}

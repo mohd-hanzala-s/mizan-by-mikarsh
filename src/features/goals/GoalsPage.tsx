@@ -138,14 +138,18 @@ export function GoalsPage() {
           <div className="relative size-56">
             <svg viewBox="0 0 56 56" className="size-56 -rotate-90">
               <circle
-                cx="28" cy="28" r="24"
+                cx="28"
+                cy="28"
+                r="24"
                 fill="none"
                 stroke="currentColor"
                 className="text-border-subtle"
                 strokeWidth="6"
               />
               <circle
-                cx="28" cy="28" r="24"
+                cx="28"
+                cy="28"
+                r="24"
                 fill="none"
                 stroke="#62C3A7"
                 strokeWidth="6"

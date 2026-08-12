@@ -67,11 +67,15 @@ function StrategyCard({
           <div className="grid grid-cols-2 gap-12">
             <div>
               <p className="text-caption text-text-tertiary">Debt-free in</p>
-              <p className="text-h3 font-semibold tabular-nums text-text-primary">{formatMonths(months)}</p>
+              <p className="text-h3 font-semibold tabular-nums text-text-primary">
+                {formatMonths(months)}
+              </p>
             </div>
             <div>
               <p className="text-caption text-text-tertiary">Total interest</p>
-              <p className="text-h3 font-semibold tabular-nums text-text-primary">{fmt(totalInterest)}</p>
+              <p className="text-h3 font-semibold tabular-nums text-text-primary">
+                {fmt(totalInterest)}
+              </p>
             </div>
           </div>
           <div className="flex flex-col gap-4 border-t border-border-subtle pt-8">

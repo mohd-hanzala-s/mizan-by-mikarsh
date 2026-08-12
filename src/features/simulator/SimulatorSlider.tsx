@@ -23,11 +23,12 @@ export function SimulatorSlider({
 }: SimulatorSliderProps) {
   const pct = max > min ? ((value - min) / (max - min)) * 100 : 0
 
-  const displayValue = unit === '%'
-    ? `${value}%`
-    : unit === 'INR' || unit === '₹'
-      ? `₹${value.toLocaleString('en-IN')}`
-      : `${value}${unit ? ' ' + unit : ''}`
+  const displayValue =
+    unit === '%'
+      ? `${value}%`
+      : unit === 'INR' || unit === '₹'
+        ? `₹${value.toLocaleString('en-IN')}`
+        : `${value}${unit ? ' ' + unit : ''}`
 
   return (
     <div className="flex flex-col gap-8 py-8">

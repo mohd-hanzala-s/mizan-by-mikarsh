@@ -118,9 +118,7 @@ export function TransactionsPage() {
       .filter((t) =>
         selectedCategoryIds.size === 0 ? true : selectedCategoryIds.has(t.categoryId)
       )
-      .filter((t) =>
-        selectedTags.size === 0 ? true : t.tags.some((tag) => selectedTags.has(tag))
-      )
+      .filter((t) => (selectedTags.size === 0 ? true : t.tags.some((tag) => selectedTags.has(tag))))
       .filter((t) =>
         matchesSearch(t, query, categoryById.get(t.categoryId), accountById.get(t.accountId))
       )
@@ -254,7 +252,7 @@ export function TransactionsPage() {
             key={sf.id}
             type="button"
             onClick={() => handleApply(sf)}
-              className="flex min-h-touch items-center gap-4 rounded-full border border-border bg-surface-card px-12 text-body-sm text-info hover:bg-neutral-50 dark:hover:bg-neutral-900"
+            className="flex min-h-touch items-center gap-4 rounded-full border border-border bg-surface-card px-12 text-body-sm text-info hover:bg-neutral-50 dark:hover:bg-neutral-900"
           >
             <BookmarkCheck className="size-12 text-info" aria-hidden="true" />
             {sf.name}

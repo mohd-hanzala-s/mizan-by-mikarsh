@@ -71,9 +71,9 @@ export function BudgetForm({ editing, onSaved, onCancel }: BudgetFormProps) {
                   : 'border-border bg-surface-card hover:bg-neutral-100 dark:hover:bg-neutral-800'
               )}
             >
-                <span className="flex size-40 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800">
-                  <Landmark className="size-20" aria-hidden="true" />
-                </span>
+              <span className="flex size-40 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800">
+                <Landmark className="size-20" aria-hidden="true" />
+              </span>
               <span className="text-caption text-text-secondary">Overall</span>
             </button>
             {categories.map((category) => {

@@ -1,13 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
-import {
-  LayoutDashboard,
-  TrendingUp,
-  TrendingDown,
-  Wallet,
-  Landmark,
-} from 'lucide-react'
+import { LayoutDashboard, TrendingUp, TrendingDown, Wallet, Landmark } from 'lucide-react'
 import { useTransactionsStore } from '@/features/transactions/transactionsStore'
 import { useAccountsStore } from '@/features/accounts/accountsStore'
 import { useBudgetsStore } from '@/features/budgets/budgetsStore'
@@ -274,9 +268,7 @@ export function DashboardPage() {
           <h1 className="font-heading text-h1 font-bold text-text-primary tracking-tight mt-2">
             {greeting}
           </h1>
-          <p className="text-body-sm text-text-secondary mt-4">
-            Here is your financial summary.
-          </p>
+          <p className="text-body-sm text-text-secondary mt-4">Here is your financial summary.</p>
         </div>
         <WidgetCustomizer layout={layout} onLayoutChange={handleLayoutChange} />
       </div>

@@ -36,11 +36,7 @@ export interface GoalEntry {
   targetAmount: number
 }
 
-export function GoalsStep({
-  onNext,
-}: {
-  onNext: (data: { goals: GoalEntry[] }) => void
-}) {
+export function GoalsStep({ onNext }: { onNext: (data: { goals: GoalEntry[] }) => void }) {
   const [selected, setSelected] = useState<Set<GoalType>>(new Set())
   const [amounts, setAmounts] = useState<Record<string, string>>({})
 

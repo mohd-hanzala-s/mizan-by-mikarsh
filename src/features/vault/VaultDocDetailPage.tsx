@@ -31,7 +31,11 @@ import { VaultDocForm } from './VaultDocForm'
 
 const DOC_TYPE_META: Record<
   VaultDocumentType,
-  { label: string; icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>; color: string }
+  {
+    label: string
+    icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>
+    color: string
+  }
 > = {
   receipt: { label: 'Receipt', icon: ReceiptText, color: 'text-income' },
   bill: { label: 'Bill', icon: FileText, color: 'text-expense' },
@@ -63,7 +67,14 @@ function daysUntil(dateStr: string): number {
   return Math.ceil((new Date(dateStr).getTime() - Date.now()) / (24 * 60 * 60 * 1000))
 }
 
-const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'image/bmp']
+const IMAGE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/webp',
+  'image/svg+xml',
+  'image/bmp',
+]
 
 export function VaultDocDetailPage() {
   const [searchParams] = useSearchParams()
@@ -206,11 +217,25 @@ export function VaultDocDetailPage() {
 
           {doc.expiryDate && (
             <div className="flex items-center gap-8">
-              <Clock className={cn('size-16', isExpired ? 'text-expense' : isExpiringSoon ? 'text-warning' : 'text-text-tertiary')} aria-hidden="true" />
+              <Clock
+                className={cn(
+                  'size-16',
+                  isExpired
+                    ? 'text-expense'
+                    : isExpiringSoon
+                      ? 'text-warning'
+                      : 'text-text-tertiary'
+                )}
+                aria-hidden="true"
+              />
               <span
                 className={cn(
                   'text-body-sm',
-                  isExpired ? 'text-expense font-medium' : isExpiringSoon ? 'text-warning font-medium' : 'text-text-secondary'
+                  isExpired
+                    ? 'text-expense font-medium'
+                    : isExpiringSoon
+                      ? 'text-warning font-medium'
+                      : 'text-text-secondary'
                 )}
               >
                 {isExpired
@@ -225,7 +250,9 @@ export function VaultDocDetailPage() {
           {doc.createdAt && (
             <div className="flex items-center gap-8">
               <Clock className="size-16 text-text-tertiary" aria-hidden="true" />
-              <span className="text-body-sm text-text-tertiary">Added {formatDate(doc.createdAt)}</span>
+              <span className="text-body-sm text-text-tertiary">
+                Added {formatDate(doc.createdAt)}
+              </span>
             </div>
           )}
         </div>
@@ -281,15 +308,10 @@ export function VaultDocDetailPage() {
           disabled={togglingFav}
           className={cn(
             'flex flex-1 items-center justify-center gap-8 rounded-2xl py-12 text-body-sm font-medium transition-all duration-fast active:scale-[0.97]',
-            doc.isFavorite
-              ? 'bg-accent-muted text-accent'
-              : 'card-sm text-text-secondary'
+            doc.isFavorite ? 'bg-accent-muted text-accent' : 'card-sm text-text-secondary'
           )}
         >
-          <Star
-            className={cn('size-18', doc.isFavorite && 'fill-accent')}
-            aria-hidden="true"
-          />
+          <Star className={cn('size-18', doc.isFavorite && 'fill-accent')} aria-hidden="true" />
           {doc.isFavorite ? 'Favorited' : 'Favorite'}
         </button>
 

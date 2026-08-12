@@ -25,7 +25,11 @@ import { VaultDocForm } from './VaultDocForm'
 
 const DOC_TYPE_META: Record<
   VaultDocumentType,
-  { label: string; icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>; color: string }
+  {
+    label: string
+    icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>
+    color: string
+  }
 > = {
   receipt: { label: 'Receipts', icon: ReceiptText, color: 'text-income' },
   bill: { label: 'Bills', icon: FileText, color: 'text-expense' },
@@ -40,7 +44,11 @@ const DOC_TYPE_META: Record<
 
 function formatDate(iso: string | null): string {
   if (!iso) return ''
-  return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+  return new Date(iso).toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
 }
 
 function daysUntil(dateStr: string): number {
@@ -51,7 +59,13 @@ export function VaultPage() {
   const navigate = useNavigate()
 
   const [documents, setDocuments] = useState<VaultDocument[]>([])
-  const [stats, setStats] = useState<{ total: number; byType: Record<VaultDocumentType, number>; expiringSoon: number; expired: number; totalSize: number } | null>(null)
+  const [stats, setStats] = useState<{
+    total: number
+    byType: Record<VaultDocumentType, number>
+    expiringSoon: number
+    expired: number
+    totalSize: number
+  } | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
@@ -60,7 +74,10 @@ export function VaultPage() {
     setLoading(true)
     setError(null)
     try {
-      const [docs, st] = await Promise.all([VaultService.getVaultDocuments(), VaultService.getStats()])
+      const [docs, st] = await Promise.all([
+        VaultService.getVaultDocuments(),
+        VaultService.getStats(),
+      ])
       setDocuments(docs)
       setStats(st)
     } catch (err) {
@@ -75,7 +92,6 @@ export function VaultPage() {
   }, [])
 
   const recentDocs = documents.slice(0, 5)
-
 
   if (error) {
     return (
@@ -147,13 +163,23 @@ export function VaultPage() {
           </div>
           <div className="card-sm rounded-xl p-12 text-center">
             <p className="text-caption text-text-tertiary">Expiring Soon</p>
-            <p className={cn('text-h3 font-semibold', stats.expiringSoon > 0 ? 'text-warning' : 'text-text-primary')}>
+            <p
+              className={cn(
+                'text-h3 font-semibold',
+                stats.expiringSoon > 0 ? 'text-warning' : 'text-text-primary'
+              )}
+            >
               {stats.expiringSoon}
             </p>
           </div>
           <div className="card-sm rounded-xl p-12 text-center">
             <p className="text-caption text-text-tertiary">Expired</p>
-            <p className={cn('text-h3 font-semibold', stats.expired > 0 ? 'text-expense' : 'text-text-primary')}>
+            <p
+              className={cn(
+                'text-h3 font-semibold',
+                stats.expired > 0 ? 'text-expense' : 'text-text-primary'
+              )}
+            >
               {stats.expired}
             </p>
           </div>
@@ -220,24 +246,24 @@ export function VaultPage() {
                 >
                   <div className="flex size-40 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-border-subtle">
                     {doc.thumbnailData ? (
-                      <img
-                        src={doc.thumbnailData}
-                        alt=""
-                        className="size-full object-cover"
-                      />
+                      <img src={doc.thumbnailData} alt="" className="size-full object-cover" />
                     ) : (
                       <Icon className={cn('size-18', meta.color)} aria-hidden="true" />
                     )}
                   </div>
                   <div className="min-w-0 flex-1 text-left">
-                    <p className="truncate text-body-sm font-medium text-text-primary">{doc.title}</p>
+                    <p className="truncate text-body-sm font-medium text-text-primary">
+                      {doc.title}
+                    </p>
                     <p className="text-caption text-text-tertiary">
                       {meta.label}
                       {doc.documentDate && ` · ${formatDate(doc.documentDate)}`}
                     </p>
                   </div>
                   <div className="flex items-center gap-4">
-                    {doc.isFavorite && <Star className="size-14 fill-accent text-accent" aria-hidden="true" />}
+                    {doc.isFavorite && (
+                      <Star className="size-14 fill-accent text-accent" aria-hidden="true" />
+                    )}
                     {isExpired && (
                       <span className="rounded-full bg-expense-subtle px-6 py-2 text-caption font-medium text-expense">
                         Expired
@@ -248,7 +274,10 @@ export function VaultPage() {
                         {daysUntil(doc.expiryDate)}d
                       </span>
                     )}
-                    <ChevronRight className="size-16 text-text-tertiary shrink-0" aria-hidden="true" />
+                    <ChevronRight
+                      className="size-16 text-text-tertiary shrink-0"
+                      aria-hidden="true"
+                    />
                   </div>
                 </button>
               )

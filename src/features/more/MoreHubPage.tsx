@@ -115,7 +115,9 @@ export function MoreHubPage() {
           </div>
           <div className="min-w-0">
             <p className="text-body font-semibold text-text-primary">Mizan Finance</p>
-            <p className="text-caption text-text-tertiary mt-2">v2.0 — Local-first, private by design</p>
+            <p className="text-caption text-text-tertiary mt-2">
+              v2.0 — Local-first, private by design
+            </p>
           </div>
         </div>
       </section>
@@ -147,7 +149,8 @@ export function MoreHubPage() {
           <Sparkles className="size-16 text-gold-500" aria-hidden="true" />
         </div>
         <p className="text-body-sm text-text-secondary text-center max-w-[320px]">
-          Your data stays on your device. Mizan is fully offline and never sends your financial information anywhere.
+          Your data stays on your device. Mizan is fully offline and never sends your financial
+          information anywhere.
         </p>
       </section>
     </div>

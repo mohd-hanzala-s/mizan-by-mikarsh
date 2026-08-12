@@ -31,7 +31,7 @@
 
   --color-accent: 15 77 69;
   --color-accent-muted: rgba(15, 77, 69, 0.12);
-  --color-accent-hover: #14655A;
+  --color-accent-hover: #14655a;
 }
 
 /* ── Dark Mode (hero presentation, default for Android) ── */
@@ -57,5 +57,5 @@
 
   --color-accent: 98 195 167;
   --color-accent-muted: rgba(98, 195, 167, 0.15);
-  --color-accent-hover: #62C3A7;
+  --color-accent-hover: #62c3a7;
 }

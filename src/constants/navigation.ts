@@ -38,7 +38,13 @@ export const PRIMARY_TABS: NavItem[] = [
 
 export const NAV_CHILDREN: Record<string, NavItem[]> = {
   money: [
-    { id: 'transactions', label: 'Transactions', path: '/transactions', icon: Receipt, primary: false },
+    {
+      id: 'transactions',
+      label: 'Transactions',
+      path: '/transactions',
+      icon: Receipt,
+      primary: false,
+    },
     { id: 'accounts', label: 'Accounts', path: '/accounts', icon: Wallet, primary: false },
     { id: 'budgets', label: 'Budgets', path: '/budgets', icon: PiggyBank, primary: false },
     { id: 'recurring', label: 'Recurring', path: '/recurring', icon: Repeat, primary: false },
@@ -47,7 +53,13 @@ export const NAV_CHILDREN: Record<string, NavItem[]> = {
   ],
   wealth: [
     { id: 'goals', label: 'Goals', path: '/goals', icon: Target, primary: false },
-    { id: 'investments', label: 'Investments', path: '/investments', icon: TrendingUp, primary: false },
+    {
+      id: 'investments',
+      label: 'Investments',
+      path: '/investments',
+      icon: TrendingUp,
+      primary: false,
+    },
     { id: 'insights', label: 'Insights', path: '/insights', icon: Lightbulb, primary: false },
   ],
   planner: [
@@ -57,15 +69,18 @@ export const NAV_CHILDREN: Record<string, NavItem[]> = {
   more: [
     { id: 'settings', label: 'Settings', path: '/settings', icon: SettingsIcon, primary: false },
     { id: 'profile', label: 'Profile', path: '/profile', icon: User, primary: false },
-    { id: 'notifications', label: 'Notifications', path: '/notifications', icon: Bell, primary: false },
+    {
+      id: 'notifications',
+      label: 'Notifications',
+      path: '/notifications',
+      icon: Bell,
+      primary: false,
+    },
     { id: 'about', label: 'About', path: '/about', icon: Info, primary: false },
   ],
 }
 
-export const ALL_NAV_ITEMS: NavItem[] = [
-  ...PRIMARY_TABS,
-  ...Object.values(NAV_CHILDREN).flat(),
-]
+export const ALL_NAV_ITEMS: NavItem[] = [...PRIMARY_TABS, ...Object.values(NAV_CHILDREN).flat()]
 
 /** Flat list kept for backward compatibility with TopAppBar title lookup. */
 export const NAV_ITEMS = ALL_NAV_ITEMS

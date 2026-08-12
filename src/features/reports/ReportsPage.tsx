@@ -177,7 +177,12 @@ export function ReportsPage({ embedded = false }: { embedded?: boolean } = {}) {
       })
       await BackupService.restoreBackup(data)
       show('Backup restored. Reloading data…')
-      await Promise.all([loadsRef.current.tx(), loadsRef.current.acct(), loadsRef.current.budgets(), loadsRef.current.settings()])
+      await Promise.all([
+        loadsRef.current.tx(),
+        loadsRef.current.acct(),
+        loadsRef.current.budgets(),
+        loadsRef.current.settings(),
+      ])
     } catch (error) {
       show(error instanceof Error ? error.message : 'Restore failed.')
     } finally {
@@ -218,11 +223,7 @@ export function ReportsPage({ embedded = false }: { embedded?: boolean } = {}) {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-12 print-hide">
-          <div
-            role="radiogroup"
-            aria-label="Report period"
-            className="card-sm inline-flex p-4"
-          >
+          <div role="radiogroup" aria-label="Report period" className="card-sm inline-flex p-4">
             {PERIOD_OPTIONS.map(({ value, label }) => (
               <button
                 key={value}
@@ -235,9 +236,9 @@ export function ReportsPage({ embedded = false }: { embedded?: boolean } = {}) {
                 }}
                 className={cn(
                   'flex min-h-touch items-center rounded-sm px-16 text-body-sm font-medium transition-colors duration-fast',
-                    periodType === value
-                      ? 'bg-brand-teal900/10 text-accent font-semibold'
-                      : 'text-text-secondary hover:text-text-primary'
+                  periodType === value
+                    ? 'bg-brand-teal900/10 text-accent font-semibold'
+                    : 'text-text-secondary hover:text-text-primary'
                 )}
               >
                 {label}
@@ -426,11 +427,11 @@ export function ReportsPage({ embedded = false }: { embedded?: boolean } = {}) {
                       <span
                         className={cn(
                           'rounded-full px-8 py-4 text-caption font-medium',
-                        b.severity === 'over'
-                          ? 'bg-expense-subtle text-expense'
-                          : b.severity === 'warning'
-                            ? 'bg-gold-500/15 text-gold-500'
-                            : 'bg-brand-teal400/15 text-brand-teal400'
+                          b.severity === 'over'
+                            ? 'bg-expense-subtle text-expense'
+                            : b.severity === 'warning'
+                              ? 'bg-gold-500/15 text-gold-500'
+                              : 'bg-brand-teal400/15 text-brand-teal400'
                         )}
                       >
                         {b.severity === 'over'
@@ -450,11 +451,11 @@ export function ReportsPage({ embedded = false }: { embedded?: boolean } = {}) {
                       <div
                         className={cn(
                           'h-full rounded-full',
-                        b.severity === 'over'
-                          ? 'bg-expense'
-                          : b.severity === 'warning'
-                            ? 'bg-gold-500'
-                            : 'bg-brand-teal400'
+                          b.severity === 'over'
+                            ? 'bg-expense'
+                            : b.severity === 'warning'
+                              ? 'bg-gold-500'
+                              : 'bg-brand-teal400'
                         )}
                         style={{ width: `${barPercent}%` }}
                       />
