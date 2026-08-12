@@ -62,6 +62,10 @@ jobs:
           key: gradle-${{ hashFiles('android/android/**/*.gradle*', 'android/android/gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: gradle-
 
+      - name: Make gradlew executable
+        working-directory: android/android
+        run: chmod +x gradlew
+
       - name: Build debug APK
         working-directory: android/android
         run: ./gradlew assembleDebug --no-daemon
