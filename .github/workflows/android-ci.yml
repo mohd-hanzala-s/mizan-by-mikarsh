@@ -2,51 +2,59 @@ name: Android CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - 'apps/android/**'
-      - 'apps/web/**'
-      - 'packages/**'
-      - '.github/workflows/android-ci.yml'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'turbo.json'
+      - "apps/android/**"
+      - "apps/web/**"
+      - "packages/**"
+      - ".github/workflows/android-ci.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "turbo.json"
+
   pull_request:
     paths:
-      - 'apps/android/**'
-      - 'apps/web/**'
-      - 'packages/**'
-      - '.github/workflows/android-ci.yml'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'turbo.json'
+      - "apps/android/**"
+      - "apps/web/**"
+      - "packages/**"
+      - ".github/workflows/android-ci.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "turbo.json"
 
 permissions:
   contents: read
 
 jobs:
   build:
-    name: Build debug APK
+    name: Build Debug APK
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: pnpm
+          node-version: "22"
+          cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Sync web build into the Android project
+      - name: Sync web build to Android
         run: pnpm sync:android
 
-      - uses: actions/setup-java@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: "21"
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -57,10 +65,19 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: gradle-${{ hashFiles('apps/android/android/**/*.gradle*', 'apps/android/android/gradle/wrapper/gradle-wrapper.properties') }}
-          restore-keys: gradle-
+          key: gradle-${{ runner.os }}-${{ hashFiles('apps/android/android/**/*.gradle*', 'apps/android/android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
 
-      - name: Build debug APK
+      - name: Make Gradle Wrapper Executable
+        working-directory: apps/android/android
+        run: chmod +x gradlew
+
+      - name: Verify Gradle Wrapper
+        working-directory: apps/android/android
+        run: ls -la
+
+      - name: Build Debug APK
         working-directory: apps/android/android
         run: ./gradlew assembleDebug --no-daemon
 
@@ -69,4 +86,5 @@ jobs:
         with:
           name: mizan-debug-apk
           path: apps/android/android/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
           retention-days: 14
