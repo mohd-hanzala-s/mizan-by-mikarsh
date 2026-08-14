@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "name": "mizan-monorepo",
+  "scripts": {
+    "dev": "turbo dev --filter=@mizan/web",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test --filter=@mizan/web",
+    "test:all": "turbo test",
+    "clean": "turbo clean",
+    "sync:android": "pnpm --filter=@mizan/web build:capacitor && cd apps/android && npx cap sync android",
+    "open:android": "cd apps/android && npx cap open android",
+    "android:dev": "pnpm sync:android && pnpm open:android",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.28.1",
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.9.6",
+    "turbo": "^2.5.6"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

@@ -1,0 +1,11 @@
+node_modules
+**/node_modules
+**/dist
+**/build
+apps/android/android
+.git
+.github
+.husky
+.changeset
+*.log
+.DS_Store

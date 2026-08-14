@@ -1,0 +1,29 @@
+<!doctype html>
+<!--
+  Optional SPA fallback for plain static hosts that lack rewrite rules.
+  Vercel (vercel.json rewrites) and Docker (nginx try_files) already handle
+  this themselves, so this file is only used if the built dist is served from
+  a bare static file server.
+
+  It repackages the requested path into a query string on the base path, and
+  the matching script in index.html restores it via history.replaceState
+  before React Router sees it. `segmentsToKeep` must match the number of path
+  segments in the base path (see vite.config.ts BASE_PATH) — currently 1, for
+  a single-segment subpath such as `/mizan/`. Update if the base path changes.
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      var segmentsToKeep = 1
+      var l = window.location
+      var path = l.pathname
+        .split('/')
+        .slice(0, 1 + segmentsToKeep)
+        .join('/')
+      var rest = l.pathname.slice(path.length)
+      l.replace(path + '/?redirect=' + encodeURIComponent(rest + l.search) + l.hash)
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,61 @@
+/**
+ * MIZAN Design System — Brand Tokens
+ * Per MIZAN Brand Guide v1.0
+ *
+ * Teal/gold palette, 60/30/10 color ratio, 4px base unit.
+ * All tokens use CSS custom properties for single-variable theme swap.
+ */
+
+/* ── Light Mode (default for Web) ── */
+:root,
+[data-theme='default'],
+[data-theme='light'] {
+  /* Neutral surfaces */
+  --surface: 244 246 245;
+  --surface-card: 255 255 255;
+  --surface-raised: 255 255 255;
+  --border: 221 229 226;
+  --border-subtle: 239 243 241;
+  --text-primary: 16 32 29;
+  --text-secondary: 100 117 111;
+  --text-tertiary: 164 178 173;
+
+  /* Elevated surface tokens */
+  --surface-elevated: rgba(255, 255, 255, 0.96);
+  --surface-pressed: rgba(239, 243, 241, 0.94);
+  --surface-input: rgba(244, 246, 245, 0.98);
+
+  /* Nav */
+  --nav-bg: rgba(244, 246, 245, 0.88);
+  --nav-border: rgba(0, 0, 0, 0.05);
+
+  --color-accent: 15 77 69;
+  --color-accent-muted: rgba(15, 77, 69, 0.12);
+  --color-accent-hover: #14655a;
+}
+
+/* ── Dark Mode (hero presentation, default for Android) ── */
+.dark,
+.dark[data-theme='default'],
+.dark[data-theme='light'],
+[data-theme='dark'] {
+  --surface: 10 22 19;
+  --surface-card: 18 33 29;
+  --surface-raised: 24 41 36;
+  --border: 30 48 42;
+  --border-subtle: 18 33 29;
+  --text-primary: 244 246 245;
+  --text-secondary: 164 178 173;
+  --text-tertiary: 100 117 111;
+
+  --surface-elevated: rgba(18, 33, 29, 0.96);
+  --surface-pressed: rgba(24, 41, 36, 0.94);
+  --surface-input: rgba(10, 22, 19, 0.96);
+
+  --nav-bg: rgba(10, 22, 19, 0.92);
+  --nav-border: rgba(98, 195, 167, 0.08);
+
+  --color-accent: 98 195 167;
+  --color-accent-muted: rgba(98, 195, 167, 0.15);
+  --color-accent-hover: #62c3a7;
+}

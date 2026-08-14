@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Mizan brand palette — see @mizan/theme/tokens.css -->
+    <color name="colorPrimary">#0F4D45</color>
+    <color name="colorPrimaryDark">#0B3A34</color>
+    <color name="colorAccent">#62C3A7</color>
+</resources>
